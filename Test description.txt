@@ -1,0 +1,207 @@
+ice_ ipcsdk_ test:
+
+1. Run command without encrypted connection:. / ice_ ipcsdk_ test 192.168.55.100 0
+
+2. Encrypted connection operation command:. / ice_ ipcsdk_ Test 192.168.55.100 1 123456 (password)
+
+3. License plate number decryption connection operation command:. / ice_ ipcsdk_ Test 192.168.55.100 2 123456 (password)
+
+linux_ sdk_ test:
+
+The get class interface displays the current parameters, and the set class interface sets the parameters according to the command line
+
+The following is an example of a test command line:
+
+1. Search for devices
+
+./linux_ sdk_ test ICE_ IPCSDK_ SearchDev eth0 5000
+
+The third parameter represents the interface name. For example, "eth0" for wired connection and "802.11" for wireless connection
+
+The fourth parameter represents the timeout. It refers to how long you haven't searched for it before you stop searching.
+
+2. Get IO status
+
+./linux_ sdk_ test ICE_ IPCSDK_ GetIOState 192.168.55.100
+
+3. Edit the black and white list
+
+./linux_ sdk_ test ICE_ IPCSDK_ Whitelistedititem 192.168.55.100 Jing a12345 2016 / 01 / 01 2016 / 12 / 30 00:00:00 23:59:59 w license plate remarks
+
+4. Add black and white list
+
+./linux_ sdk_ test ICE_ IPCSDK_ Whitelistinsertitem 192.168.55.100 Jing a12345 2016 / 01 / 01 2016 / 12 / 30 00:00:00 23:59:59 w license plate remarks
+
+5. Add black and white list (coverage method)
+
+./linux_ sdk_ test ICE_ IPCSDK_ Whitelistinsertcoveritem 192.168.55.100 a12345 2016 / 01 / 01 2016 / 12 / 30 00:00:00 23:59:59 w license plate remarks
+
+6. Delete a black-and-white list
+
+./linux_ sdk_ test ICE_ IPCSDK_ Whitelistdeleteitem 192.168.55.100 a12345
+
+7. Delete all black and white lists
+
+./linux_ sdk_ test ICE_ IPCSDK_ WhiteListDelAllItems 192.168.55.100
+
+8. Delete all white lists
+
+./linux_ sdk_ test ICE_ IPCSDK_ DelAllWhiteItems 192.168.55.100
+
+9. Delete all blacklists
+
+./linux_ sdk_ test ICE_ IPCSDK_ DelAllBlackItems 192.168.55.100
+
+10. Search the black and white list
+
+./linux_ sdk_ test ICE_ IPCSDK_ Whitelistfinditem 192.168.55.100 a12345
+
+11. Obtain the total number of black and white lists, the total number of black lists and the total number of white lists
+
+./linux_ sdk_ test ICE_ IPCSDK_ WhiteListGetCount 192.168.55.100
+
+12. Display all black and white lists
+
+./linux_ sdk_ test ICE_ IPCSDK_ WhiteListGetAllItem 192.168.55.100
+
+13. Display all blacklists
+
+./linux_ sdk_ test ICE_ IPCSDK_ GetAllBlackItem 192.168.55.100
+
+14. Show all white lists
+
+./linux_ sdk_ test ICE_ IPCSDK_ GetAllWhiteItem 192.168.55.100
+
+15. Unicast via index
+
+./linux_ sdk_ test ICE_ IPCSDK_ Broadcast 192.168.55.100 1
+
+16. Broadcast through the list of documents
+
+./linux_ sdk_ test ICE_ IPCSDK_ Broadcast_ ByName 192.168.55.100 1.wav
+
+17. Multicast by file name
+
+./linux_ sdk_ test ICE_ IPCSDK_ BroadcastGroup_ ByName 192.168.55.100
+
+Please enter a file name:
+
+1.wav 2.wav (file names separated by spaces, commas and semicolons)
+
+18. Time synchronization
+
+./linux_ sdk_ test ICE_ IPCSDK_ SyncTime 192.168.55.100
+
+19. Control switching value output
+
+./linux_ sdk_ test ICE_ IPCSDK_ Controlalarmout 192.168.55.100 1 (switching value 1)
+
+./linux_ sdk_ test ICE_ IPCSDK_ Controlalarmout 192.168.55.100 2 (switching value 2)
+
+./linux_ sdk_ test ICE_ IPCSDK_ Controlalarmout 192.168.55.100 3 (switching value 3)
+
+./linux_ sdk_ test ICE_ IPCSDK_ Controlalarmout 192.168.55.100 4 (switching value 4)
+
+20. Modify IP across network segments (the last parameter indicates the interface name, such as eth0, which can be viewed through ifconfig and requires root permission)
+
+./linux_ sdk_ test ICE_ IPCSDK_ ModifyDevIP 192.168.55.100 eth0
+
+21. Obtain serial port parameters
+
+./linux_ sdk_ test ICE_ IPCSDK_ GetUARTCfg 192.168.55.100
+
+22. Set serial port parameters
+
+./linux_ sdk_ test ICE_ IPCSDK_ SetUARTCfg 192.168.55.100
+
+23. Open / close password
+
+./linux_ sdk_ test ICE_ IPCSDK_ Enableenc 192.168.55.100 0 (0 off, 1 on) 123456 (camera password)
+
+24. Change password
+
+./linux_ sdk_ test ICE_ IPCSDK_ Modifyencpwd 192.168.55.100 123456 (old password) 1234567 (new password)
+
+25. Acquire trigger mode
+
+./linux_ sdk_ test ICE_ IPCSDK_ GetTriggerMode 192.168.55.100
+
+26. Set trigger mode
+
+./linux_ sdk_ test ICE_ IPCSDK_ Settriggermode 192.168.55.100 0 (0 indicates IO coil trigger, 1 indicates video trigger and 2 indicates mixed mode)
+
+27. Obtain switching value output configuration
+
+./linux_ sdk_ test ICE_ IPCSDK_ Getalarmoutconfig 192.168.55.100 0 (IO port, 0 for IO1, 1 for io2, 2 for IO3, 3 for IO4)
+
+28. Set switching value output configuration
+
+./linux_ sdk_ test ICE_ IPCSDK_ SetAlarmOutConfig 192.168.55.100 0 1 1
+
+The fourth parameter: represents the IO port, 0 represents IO1, 1 represents io2, 2 represents IO3, and 3 represents IO4
+
+Fifth parameter: 0 normally open 1 normally closed
+
+The sixth parameter: switching time, value - 1,1-10
+
+29. Set network parameters
+
+./linux_ sdk_ test ICE_ IPCSDK_ Setipaddr 192.168.55.100 192.168.55.101 (IP) 255.255.255.0 (mask) 192.168.55.1 (Gateway)
+
+30. Get uid information
+
+./linux_ sdk_ test ICE_ IPCSDK_ GetUID 192.168.55.100
+
+31. Get mac address
+
+./linux_ sdk_ test ICE_ IPCSDK_ GetDevID 192.168.55.100
+
+32. Get black and white list parameters
+
+./linux_ sdk_ test ICE_ IPCSDK_ GetNewWhiteListParam 192.168.55.100
+
+33. Set black and white list parameters
+
+./linux_ sdk_ test ICE_ IPCSDK_ SetNewWhiteListParam 192.168.55.100
+
+Note: data is configured in testcfg.ini - [whitelistparams]
+
+34. Partially restore factory settings
+
+./linux_ sdk_ test ICE_ IPCSDK_ DefaultParam 192.168.55.100
+
+35. Read user data
+
+./linux_ sdk_ test ICE_ IPCSDK_ ReadUserData 192.168.55.100
+
+36. Write user data
+
+./linux_ sdk_ test ICE_ IPCSDK_ WriteUserData 192.168.55.100
+
+Note: data is configured in testcfg.ini - [UserData]
+
+37. Send RS485 serial port data (corresponding to rs485-1 serial port)
+
+./linux_ sdk_ test ICE_ IPCSDK_ TransSerialPort 192.168.55.100
+
+Note: data is configured in testcfg.ini - [RS485]
+
+38. Send rs485-1 serial port data (corresponding to rs485-2 serial port or RS232 serial port)
+
+./linux_ sdk_ test ICE_ IPCSDK_ TransSerialPort_ RS232 192.168.55.100
+
+Note: data is configured in testcfg.ini - [rs485-1]
+
+39. Get camera time
+
+./linux_ sdk_ test ICE_ IPCSDK_ GetSyncTime 192.168.55.100
+
+40. Get network parameters
+
+./linux_ sdk_ test ICE_ IPCSDK_ GetIPAddr 192.168.55.100
+
+41. Get SDK version number
+
+./linux_ sdk_ test ICE_ IPCSDK_ GetSDKVersion
+
+-----------------------------------------------------

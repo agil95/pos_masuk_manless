@@ -1,0 +1,15 @@
+CC = g++
+CC_FLAG = -Wall -O2
+LFLAGS = -Wl,-rpath=.
+
+INC = -I.
+LIB = -L./ -lsqlite3
+
+PRG = setting
+OBJ = setting.o
+
+$(PRG) : $(OBJ)
+	$(CC) $(OBJ) $(LIB) $(LFLAGS) -o $@
+
+clean :
+	rm -f $(OBJ) $(PRG)

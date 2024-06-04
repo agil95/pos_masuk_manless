@@ -1,0 +1,16 @@
+{
+    "status": "true",
+    "datetime": "2023-11-22 15:00:14",
+    "data": [
+        {
+            "name": "command",
+            "index": "X",
+            "optional": 1000
+        },
+        {
+            "name": "status",
+            "index": "X",
+            "optional": 5500
+        }
+    ]
+}

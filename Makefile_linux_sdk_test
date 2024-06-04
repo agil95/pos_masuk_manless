@@ -1,0 +1,15 @@
+CC = g++
+CC_FLAG = -Wall -O2
+LFLAGS = -Wl,-rpath=.
+
+INC = -I.
+LIB = -L./ -lice_ipcsdk -lpthread -lrt -lm
+
+PRG = linux_sdk_test
+OBJ = linux_sdk_test.o config.o
+
+$(PRG) : $(OBJ)
+	$(CC) $(OBJ) $(LIB) $(LFLAGS) -o $@
+
+clean :
+	rm -f $(OBJ) $(PRG)

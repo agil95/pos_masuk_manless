@@ -1,0 +1,4 @@
+# compile
+make -f Makefile pos_masuk
+g++ main.cpp -o main -lcurl -lcjson -lsqlite3
+g++ setting.cpp -o setting -l sqlite3

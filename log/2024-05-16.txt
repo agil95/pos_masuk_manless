@@ -1,0 +1,230 @@
+[2024-05-16 10:11:49]: ====================================================
+[2024-05-16 10:11:49]: |                Pos Masuk [Manless]               |
+[2024-05-16 10:11:49]: |                Gate: PM90                        |
+[2024-05-16 10:11:49]: |                Mode: Online        		      |
+[2024-05-16 10:11:49]: |                Version 1.0.1 @ 14/05/2024        |
+[2024-05-16 10:11:49]: ====================================================
+[2024-05-16 10:11:49]: [INFO] App berhasil terhubung ke server...
+[2024-05-16 10:11:49]: [INFO] App => Online Mode...
+[2024-05-16 10:11:49]: [INFO] Last counter => 158
+[2024-05-16 10:11:49]: [INFO] Parking available => 842
+[2024-05-16 10:11:49]: [INFO] Sync time from server => 2024-05-16 10:11:49
+[2024-05-16 10:11:49]: [INFO] Waktu shift : 1
+[2024-05-16 10:11:49]: [INFO] No data transaction in local...
+[2024-05-16 10:12:22]: [INFO] Application is closed!
+[2024-05-16 10:12:22]: ----------------------------------------------------
+[2024-05-16 10:13:21]: ====================================================
+[2024-05-16 10:13:21]: |                Pos Masuk [Manless]               |
+[2024-05-16 10:13:21]: |                Gate: PM90                        |
+[2024-05-16 10:13:21]: |                Mode: Online        		      |
+[2024-05-16 10:13:21]: |                Version 1.0.1 @ 14/05/2024        |
+[2024-05-16 10:13:21]: ====================================================
+[2024-05-16 10:13:21]: [INFO] App berhasil terhubung ke server...
+[2024-05-16 10:13:21]: [INFO] App => Online Mode...
+[2024-05-16 10:13:21]: [INFO] Last counter => 158
+[2024-05-16 10:13:21]: [INFO] Parking available => 842
+[2024-05-16 10:13:21]: [INFO] Sync time from server => 2024-05-16 10:13:21
+[2024-05-16 10:13:21]: [INFO] Waktu shift : 1
+[2024-05-16 10:13:21]: [INFO] No data transaction in local...
+[2024-05-16 10:13:35]: ============================================
+[2024-05-16 10:13:35]:      Transaction @ 2024-05-16 10:13:35
+[2024-05-16 10:13:35]: ============================================
+[2024-05-16 10:13:35]: [INFO] Ticket counter -> 159
+[2024-05-16 10:13:35]: [INFO] Generate ticket [13] -> KA2245GA13159
+[2024-05-16 10:13:35]: [INFO] Generate ticket QR [32] -> KA2245GA1315920240516101335MOBIL
+[2024-05-16 10:13:35]: [INFO] Image kendaraan -> tmp/no-photo-available.jpg
+[2024-05-16 10:13:35]: [INFO] Image wajah -> tmp/no-photo-available.jpg
+[2024-05-16 10:13:36]: [INFO] Nopol -> 
+[2024-05-16 10:13:36]: [INFO][LOCAL] Successfully store ticket #KA2245GA13159
+[2024-05-16 10:13:36]: [INFO][LOCAL] Successfully update counter -> 159
+[2024-05-16 10:13:36]: [INFO] Relay -> True
+[2024-05-16 10:13:37]: [INFO] App berhasil terhubung ke server...
+[2024-05-16 10:13:37]: [INFO] App => Online Mode...
+[2024-05-16 10:14:23]: ============================================
+[2024-05-16 10:14:23]:      Transaction @ 2024-05-16 10:14:23
+[2024-05-16 10:14:23]: ============================================
+[2024-05-16 10:14:23]: [INFO] Ticket counter -> 160
+[2024-05-16 10:14:23]: [INFO] Generate ticket [13] -> KA2245GA14160
+[2024-05-16 10:14:23]: [INFO] Generate ticket QR [32] -> KA2245GA1416020240516101423MOBIL
+[2024-05-16 10:14:23]: [INFO] Image kendaraan -> tmp/no-photo-available.jpg
+[2024-05-16 10:14:23]: [INFO] Image wajah -> tmp/no-photo-available.jpg
+[2024-05-16 10:14:24]: [INFO] Nopol -> 
+[2024-05-16 10:14:24]: [INFO][LOCAL] Successfully store ticket #KA2245GA14160
+[2024-05-16 10:14:24]: [INFO][LOCAL] Successfully update counter -> 160
+[2024-05-16 10:14:24]: [INFO] Relay -> True
+[2024-05-16 10:14:25]: [INFO] App berhasil terhubung ke server...
+[2024-05-16 10:14:25]: [INFO] App => Online Mode...
+[2024-05-16 10:15:37]: ============================================
+[2024-05-16 10:15:37]:      Transaction @ 2024-05-16 10:15:37
+[2024-05-16 10:15:37]: ============================================
+[2024-05-16 10:15:37]: [INFO] Ticket counter -> 161
+[2024-05-16 10:15:37]: [INFO] Generate ticket [13] -> KA2245GA15161
+[2024-05-16 10:15:37]: [INFO] Generate ticket QR [32] -> KA2245GA1516120240516101537MOBIL
+[2024-05-16 10:15:37]: [INFO] Image kendaraan -> tmp/no-photo-available.jpg
+[2024-05-16 10:15:37]: [INFO] Image wajah -> tmp/no-photo-available.jpg
+[2024-05-16 10:15:37]: [INFO] Nopol -> 
+[2024-05-16 10:15:37]: [INFO][LOCAL] Successfully store ticket #KA2245GA15161
+[2024-05-16 10:15:38]: [INFO][LOCAL] Successfully update counter -> 161
+[2024-05-16 10:15:38]: [INFO] Relay -> True
+[2024-05-16 10:15:39]: [INFO] App berhasil terhubung ke server...
+[2024-05-16 10:15:39]: [INFO] App => Online Mode...
+[2024-05-16 10:16:01]: [INFO] Application is closed!
+[2024-05-16 10:16:01]: ----------------------------------------------------
+[2024-05-16 10:16:55]: ====================================================
+[2024-05-16 10:16:55]: |                Pos Masuk [Manless]               |
+[2024-05-16 10:16:55]: |                Gate: PM90                        |
+[2024-05-16 10:16:55]: |                Mode: Online        		      |
+[2024-05-16 10:16:55]: |                Version 1.0.1 @ 14/05/2024        |
+[2024-05-16 10:16:55]: ====================================================
+[2024-05-16 10:16:55]: [INFO] App berhasil terhubung ke server...
+[2024-05-16 10:16:55]: [INFO] App => Online Mode...
+[2024-05-16 10:16:55]: [INFO] Last counter => 161
+[2024-05-16 10:16:55]: [INFO] Parking available => 839
+[2024-05-16 10:16:56]: [INFO] Sync time from server => 2024-05-16 10:16:56
+[2024-05-16 10:16:56]: [INFO] Waktu shift : 1
+[2024-05-16 10:16:56]: [INFO] No data transaction in local...
+[2024-05-16 10:17:19]: ============================================
+[2024-05-16 10:17:19]:      Transaction @ 2024-05-16 10:17:19
+[2024-05-16 10:17:19]: ============================================
+[2024-05-16 10:17:19]: [INFO] Ticket counter -> 162
+[2024-05-16 10:17:19]: [INFO] Generate ticket [13] -> KA2245GA17162
+[2024-05-16 10:17:19]: [INFO] Generate ticket QR [32] -> KA2245GA1716220240516101719MOBIL
+[2024-05-16 10:17:19]: [INFO] Image kendaraan -> tmp/no-photo-available.jpg
+[2024-05-16 10:17:20]: [INFO] Image wajah -> tmp/no-photo-available.jpg
+[2024-05-16 10:17:20]: [INFO] Nopol -> 
+[2024-05-16 10:17:20]: [INFO][LOCAL] Successfully store ticket #KA2245GA17162
+[2024-05-16 10:17:20]: [INFO][LOCAL] Successfully update counter -> 162
+[2024-05-16 10:17:21]: [INFO] Relay -> True
+[2024-05-16 10:17:21]: [INFO] App berhasil terhubung ke server...
+[2024-05-16 10:17:21]: [INFO] App => Online Mode...
+[2024-05-16 10:17:42]: ============================================
+[2024-05-16 10:17:42]:      Transaction @ 2024-05-16 10:17:42
+[2024-05-16 10:17:42]: ============================================
+[2024-05-16 10:17:42]: [INFO] Ticket counter -> 163
+[2024-05-16 10:17:42]: [INFO] Generate ticket [13] -> KA2245GA17163
+[2024-05-16 10:17:42]: [INFO] Generate ticket QR [32] -> KA2245GA1716320240516101742MOBIL
+[2024-05-16 10:17:42]: [INFO] Image kendaraan -> tmp/no-photo-available.jpg
+[2024-05-16 10:17:43]: [INFO] Image wajah -> tmp/no-photo-available.jpg
+[2024-05-16 10:17:43]: [INFO] Nopol -> 
+[2024-05-16 10:17:43]: [INFO][LOCAL] Successfully store ticket #KA2245GA17163
+[2024-05-16 10:17:43]: [INFO][LOCAL] Successfully update counter -> 163
+[2024-05-16 10:17:44]: [INFO] Relay -> True
+[2024-05-16 10:17:45]: [INFO] App berhasil terhubung ke server...
+[2024-05-16 10:17:45]: [INFO] App => Online Mode...
+[2024-05-16 10:18:06]: ============================================
+[2024-05-16 10:18:06]:      Transaction @ 2024-05-16 10:18:06
+[2024-05-16 10:18:06]: ============================================
+[2024-05-16 10:18:06]: [INFO] Ticket counter -> 164
+[2024-05-16 10:18:06]: [INFO] Generate ticket [13] -> KA2245GA18164
+[2024-05-16 10:18:06]: [INFO] Generate ticket QR [32] -> KA2245GA1816420240516101806MOBIL
+[2024-05-16 10:18:06]: [INFO] Image kendaraan -> tmp/no-photo-available.jpg
+[2024-05-16 10:18:06]: [INFO] Image wajah -> tmp/no-photo-available.jpg
+[2024-05-16 10:18:06]: [INFO] Nopol -> 
+[2024-05-16 10:18:06]: [INFO][LOCAL] Successfully store ticket #KA2245GA18164
+[2024-05-16 10:18:07]: [INFO][LOCAL] Successfully update counter -> 164
+[2024-05-16 10:18:07]: [INFO] Relay -> True
+[2024-05-16 10:18:08]: [INFO] App berhasil terhubung ke server...
+[2024-05-16 10:18:08]: [INFO] App => Online Mode...
+[2024-05-16 10:18:31]: ============================================
+[2024-05-16 10:18:31]:      Transaction @ 2024-05-16 10:18:31
+[2024-05-16 10:18:31]: ============================================
+[2024-05-16 10:18:31]: [INFO] Ticket counter -> 165
+[2024-05-16 10:18:31]: [INFO] Generate ticket [13] -> KA2245GA18165
+[2024-05-16 10:18:31]: [INFO] Generate ticket QR [32] -> KA2245GA1816520240516101831MOBIL
+[2024-05-16 10:18:31]: [INFO] Image kendaraan -> tmp/no-photo-available.jpg
+[2024-05-16 10:18:32]: [INFO] Image wajah -> tmp/no-photo-available.jpg
+[2024-05-16 10:18:32]: [INFO] Nopol -> 
+[2024-05-16 10:18:32]: [INFO][LOCAL] Successfully store ticket #KA2245GA18165
+[2024-05-16 10:18:32]: [INFO][LOCAL] Successfully update counter -> 165
+[2024-05-16 10:18:33]: [INFO] Relay -> True
+[2024-05-16 10:18:33]: [INFO] App berhasil terhubung ke server...
+[2024-05-16 10:18:33]: [INFO] App => Online Mode...
+[2024-05-16 10:18:48]: ============================================
+[2024-05-16 10:18:48]:      Transaction @ 2024-05-16 10:18:48
+[2024-05-16 10:18:48]: ============================================
+[2024-05-16 10:18:48]: [INFO] Ticket counter -> 166
+[2024-05-16 10:18:48]: [INFO] Generate ticket [13] -> KA2245GA18166
+[2024-05-16 10:18:48]: [INFO] Generate ticket QR [32] -> KA2245GA1816620240516101848MOBIL
+[2024-05-16 10:18:48]: [INFO] Image kendaraan -> tmp/no-photo-available.jpg
+[2024-05-16 10:18:49]: [INFO] Image wajah -> tmp/no-photo-available.jpg
+[2024-05-16 10:18:49]: [INFO] Nopol -> 
+[2024-05-16 10:18:49]: [INFO][LOCAL] Successfully store ticket #KA2245GA18166
+[2024-05-16 10:18:49]: [INFO][LOCAL] Successfully update counter -> 166
+[2024-05-16 10:18:50]: [INFO] Relay -> True
+[2024-05-16 10:18:50]: [INFO] App berhasil terhubung ke server...
+[2024-05-16 10:18:50]: [INFO] App => Online Mode...
+[2024-05-16 10:19:09]: [INFO] Application is closed!
+[2024-05-16 10:19:09]: ----------------------------------------------------
+[2024-05-16 10:22:18]: ====================================================
+[2024-05-16 10:22:18]: |                Pos Masuk [Manless]               |
+[2024-05-16 10:22:18]: |                Gate: PM90                        |
+[2024-05-16 10:22:18]: |                Mode: Online        		      |
+[2024-05-16 10:22:18]: |                Version 1.0.1 @ 14/05/2024        |
+[2024-05-16 10:22:18]: ====================================================
+[2024-05-16 10:22:18]: [INFO] App berhasil terhubung ke server...
+[2024-05-16 10:22:18]: [INFO] App => Online Mode...
+[2024-05-16 10:22:18]: [INFO] Last counter => 166
+[2024-05-16 10:22:18]: [INFO] Parking available => 834
+[2024-05-16 10:22:18]: [INFO] Sync time from server => 2024-05-16 10:22:18
+[2024-05-16 10:22:18]: [INFO] Waktu shift : 1
+[2024-05-16 10:22:18]: [INFO] No data transaction in local...
+[2024-05-16 10:22:33]: ============================================
+[2024-05-16 10:22:33]:      Transaction @ 2024-05-16 10:22:33
+[2024-05-16 10:22:33]: ============================================
+[2024-05-16 10:22:33]: [INFO] Ticket counter -> 167
+[2024-05-16 10:22:33]: [INFO] Generate ticket [13] -> KA2245GA22167
+[2024-05-16 10:22:33]: [INFO] Generate ticket QR [32] -> KA2245GA2216720240516102233MOBIL
+[2024-05-16 10:22:33]: [INFO] Image kendaraan -> tmp/no-photo-available.jpg
+[2024-05-16 10:22:33]: [INFO] Image wajah -> tmp/no-photo-available.jpg
+[2024-05-16 10:22:33]: [INFO] Nopol -> 
+[2024-05-16 10:22:33]: [INFO][LOCAL] Successfully store ticket #KA2245GA22167
+[2024-05-16 10:22:34]: [INFO][LOCAL] Successfully update counter -> 167
+[2024-05-16 10:22:35]: [INFO] Relay -> True
+[2024-05-16 10:22:36]: [INFO] App berhasil terhubung ke server...
+[2024-05-16 10:22:36]: [INFO] App => Online Mode...
+[2024-05-16 10:23:08]: [INFO] Application is closed!
+[2024-05-16 10:23:08]: ----------------------------------------------------
+[2024-05-16 13:06:39]: ====================================================
+[2024-05-16 13:06:39]: |                Pos Masuk [Manless]               |
+[2024-05-16 13:06:39]: |                Gate: PM90                        |
+[2024-05-16 13:06:39]: |                Mode: Online        		      |
+[2024-05-16 13:06:39]: |                Version 1.0.1 @ 14/05/2024        |
+[2024-05-16 13:06:39]: ====================================================
+[2024-05-16 13:06:39]: [INFO] App berhasil terhubung ke server...
+[2024-05-16 13:06:39]: [INFO] App => Online Mode...
+[2024-05-16 13:06:39]: [INFO] Last counter => 167
+[2024-05-16 13:06:39]: [INFO] Parking available => 833
+[2024-05-16 13:06:40]: [INFO] Sync time from server => 2024-05-16 13:06:40
+[2024-05-16 13:06:40]: [INFO] Waktu shift : 1
+[2024-05-16 13:06:40]: [INFO] No data transaction in local...
+[2024-05-16 13:06:52]: ============================================
+[2024-05-16 13:06:52]:      Transaction @ 2024-05-16 13:06:52
+[2024-05-16 13:06:52]: ============================================
+[2024-05-16 13:06:52]: [INFO] Ticket counter -> 168
+[2024-05-16 13:06:52]: [INFO] Generate ticket [13] -> KA2245GD06168
+[2024-05-16 13:06:52]: [INFO] Generate ticket QR [32] -> KA2245GD0616820240516130652MOBIL
+[2024-05-16 13:06:52]: [INFO] Image kendaraan -> tmp/no-photo-available.jpg
+[2024-05-16 13:06:53]: [INFO] Image wajah -> tmp/no-photo-available.jpg
+[2024-05-16 13:06:53]: [INFO] Nopol -> 
+[2024-05-16 13:06:53]: [INFO][LOCAL] Successfully store ticket #KA2245GD06168
+[2024-05-16 13:06:53]: [INFO][LOCAL] Successfully update counter -> 168
+[2024-05-16 13:06:54]: [INFO] Relay -> True
+[2024-05-16 13:06:54]: [INFO] App berhasil terhubung ke server...
+[2024-05-16 13:06:54]: [INFO] App => Online Mode...
+[2024-05-16 13:08:26]: [INFO] Application is closed!
+[2024-05-16 13:08:26]: ----------------------------------------------------
+[2024-05-16 13:10:10]: ====================================================
+[2024-05-16 13:10:10]: |                Pos Masuk [Manless]               |
+[2024-05-16 13:10:10]: |                Gate: PM90                        |
+[2024-05-16 13:10:10]: |                Mode: Online        		      |
+[2024-05-16 13:10:10]: |                Version 1.0.1 @ 16/05/2024        |
+[2024-05-16 13:10:10]: ====================================================
+[2024-05-16 13:10:10]: [INFO] App berhasil terhubung ke server...
+[2024-05-16 13:10:10]: [INFO] App => Online Mode...
+[2024-05-16 13:10:10]: [INFO] Last counter => 168
+[2024-05-16 13:10:10]: [INFO] Parking available => 832
+[2024-05-16 13:10:10]: [INFO] Sync time from server => 2024-05-16 13:10:10
+[2024-05-16 13:10:10]: [INFO] Waktu shift : 1
+[2024-05-16 13:10:10]: [INFO] No data transaction in local...
+[2024-05-16 13:10:56]: [INFO] Application is closed!
+[2024-05-16 13:10:56]: ----------------------------------------------------
