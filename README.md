@@ -1,4 +1,4 @@
-# Pos Keluar Manless C & C++
+# Pos Masuk Manless C & C++
 
 Feature:
 - E-money
