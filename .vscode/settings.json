@@ -63,7 +63,10 @@
         "ratio": "cpp",
         "iomanip": "cpp",
         "valarray": "cpp",
-        "termios.h": "c"
+        "termios.h": "c",
+        "time.h": "c",
+        "string.h": "c",
+        "wait.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

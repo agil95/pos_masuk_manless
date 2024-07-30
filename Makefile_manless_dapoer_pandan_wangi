@@ -1,0 +1,15 @@
+CC = g++
+CC_FLAG = -Wall -O2
+LFLAGS = -Wl,-rpath=.
+
+INC = -I.
+LIB = -L./ -lpthread -lrt -lsqlite3 -lcurl -lcjson -std=gnu99
+
+PRG = manless_dapoer_pandan_wangi
+OBJ = manless_dapoer_pandan_wangi.o
+
+$(PRG) : $(OBJ)
+	$(CC) $(OBJ) $(LIB) $(LFLAGS) -o $@
+
+clean :
+	rm -f $(OBJ) $(PRG)

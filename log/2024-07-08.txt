@@ -1,0 +1,330 @@
+[2024-07-08 14:52:09]: ====================================================
+[2024-07-08 14:52:09]: |                Pos Masuk [Manless]               |
+[2024-07-08 14:52:09]: |                Gate: PM90                        |
+[2024-07-08 14:52:09]: |                Mode: Online        		      |
+[2024-07-08 14:52:09]: |                Version 1.0.6 @ 08/07/2024        |
+[2024-07-08 14:52:09]: ====================================================
+[2024-07-08 14:52:09]: [INFO] App berhasil terhubung ke server...
+[2024-07-08 14:52:09]: [INFO] App => Online Mode...
+[2024-07-08 14:52:09]: [INFO] Last counter => 181
+[2024-07-08 14:52:09]: [INFO] Parking available => 819
+[2024-07-08 14:52:09]: [INFO] Service => 192.168.1.123:6768
+[2024-07-08 14:52:09]: [INFO] Sync time from server => 2024-07-08 14:52:09
+[2024-07-08 14:52:09]: [INFO] Waktu shift : 2
+[2024-07-08 14:52:09]: [INFO] Bank Support : MANDIRI,BRI
+[2024-07-08 14:52:09]: [INFO] Response store [JP12471A36335]: Failed store ticket IN
+[2024-07-08 14:52:09]: [INFO] Migrate transaction => ID:[196] | TIKET:[JP12471A36335] | WAKTU MASUK:[2024-07-01 10:36:31] | JENIS KENDARAAN:[MOBIL] 1/1 Failed
+[2024-07-08 14:52:10]: [INFO] Response store [JP12471A37336]: Failed store ticket IN
+[2024-07-08 14:52:10]: [INFO] Migrate transaction => ID:[197] | TIKET:[JP12471A37336] | WAKTU MASUK:[2024-07-01 10:37:11] | JENIS KENDARAAN:[MOBIL] 2/2 Failed
+[2024-07-08 14:52:10]: [INFO] Response store [JP12471A45337]: Failed store ticket IN
+[2024-07-08 14:52:10]: [INFO] Migrate transaction => ID:[198] | TIKET:[JP12471A45337] | WAKTU MASUK:[2024-07-01 10:45:17] | JENIS KENDARAAN:[MOBIL] 3/3 Failed
+[2024-07-08 14:52:11]: [INFO] Response store [JP12471A46338]: Failed store ticket IN
+[2024-07-08 14:52:11]: [INFO] Migrate transaction => ID:[199] | TIKET:[JP12471A46338] | WAKTU MASUK:[2024-07-01 10:46:40] | JENIS KENDARAAN:[MOBIL] 4/4 Failed
+[2024-07-08 14:52:11]: [INFO] Response store [JP12471A47339]: Failed store ticket IN
+[2024-07-08 14:52:11]: [INFO] Migrate transaction => ID:[200] | TIKET:[JP12471A47339] | WAKTU MASUK:[2024-07-01 10:47:49] | JENIS KENDARAAN:[MOBIL] 5/5 Failed
+[2024-07-08 14:52:11]: [INFO] Response store [JP12471B06340]: Failed store ticket IN
+[2024-07-08 14:52:11]: [INFO] Migrate transaction => ID:[201] | TIKET:[JP12471B06340] | WAKTU MASUK:[2024-07-01 11:06:19] | JENIS KENDARAAN:[MOBIL] 6/6 Failed
+[2024-07-08 14:52:12]: [INFO] Silahkan tap ulang kartu anda ...
+[2024-07-08 14:52:12]: [INFO] Response store [JP12471B19341]: Failed store ticket IN
+[2024-07-08 14:52:12]: [INFO] Migrate transaction => ID:[202] | TIKET:[JP12471B19341] | WAKTU MASUK:[2024-07-01 11:19:00] | JENIS KENDARAAN:[MOBIL] 7/7 Failed
+[2024-07-08 14:52:12]: [INFO] Response store [JP12471F18347]: Failed store ticket IN
+[2024-07-08 14:52:12]: [INFO] Migrate transaction => ID:[203] | TIKET:[JP12471F18347] | WAKTU MASUK:[2024-07-01 15:18:44] | JENIS KENDARAAN:[MOBIL] 8/8 Failed
+[2024-07-08 14:52:12]: [INFO] Silahkan tap ulang kartu anda ...
+[2024-07-08 14:52:51]: ====================================================
+[2024-07-08 14:52:51]: |                Pos Masuk [Manless]               |
+[2024-07-08 14:52:51]: |                Gate: PM90                        |
+[2024-07-08 14:52:51]: |                Mode: Online        		      |
+[2024-07-08 14:52:51]: |                Version 1.0.6 @ 08/07/2024        |
+[2024-07-08 14:52:51]: ====================================================
+[2024-07-08 14:52:51]: [INFO] App berhasil terhubung ke server...
+[2024-07-08 14:52:51]: [INFO] App => Online Mode...
+[2024-07-08 14:52:51]: [INFO] Last counter => 181
+[2024-07-08 14:52:51]: [INFO] Parking available => 819
+[2024-07-08 14:52:51]: [INFO] Service => 192.168.1.123:6767
+[2024-07-08 14:52:51]: [INFO] Sync time from server => 2024-07-08 14:52:51
+[2024-07-08 14:52:51]: [INFO] Waktu shift : 2
+[2024-07-08 14:52:51]: [INFO] Bank Support : MANDIRI,BRI
+[2024-07-08 14:52:51]: [INFO] Response store [JP12471A36335]: Failed store ticket IN
+[2024-07-08 14:52:51]: [INFO] Migrate transaction => ID:[196] | TIKET:[JP12471A36335] | WAKTU MASUK:[2024-07-01 10:36:31] | JENIS KENDARAAN:[MOBIL] 1/1 Failed
+[2024-07-08 14:52:52]: [INFO] Response store [JP12471A37336]: Failed store ticket IN
+[2024-07-08 14:52:52]: [INFO] Migrate transaction => ID:[197] | TIKET:[JP12471A37336] | WAKTU MASUK:[2024-07-01 10:37:11] | JENIS KENDARAAN:[MOBIL] 2/2 Failed
+[2024-07-08 14:52:52]: [INFO] Response store [JP12471A45337]: Failed store ticket IN
+[2024-07-08 14:52:52]: [INFO] Migrate transaction => ID:[198] | TIKET:[JP12471A45337] | WAKTU MASUK:[2024-07-01 10:45:17] | JENIS KENDARAAN:[MOBIL] 3/3 Failed
+[2024-07-08 14:52:53]: [INFO] Response store [JP12471A46338]: Failed store ticket IN
+[2024-07-08 14:52:53]: [INFO] Migrate transaction => ID:[199] | TIKET:[JP12471A46338] | WAKTU MASUK:[2024-07-01 10:46:40] | JENIS KENDARAAN:[MOBIL] 4/4 Failed
+[2024-07-08 14:52:53]: [INFO] Response store [JP12471A47339]: Failed store ticket IN
+[2024-07-08 14:52:53]: [INFO] Migrate transaction => ID:[200] | TIKET:[JP12471A47339] | WAKTU MASUK:[2024-07-01 10:47:49] | JENIS KENDARAAN:[MOBIL] 5/5 Failed
+[2024-07-08 14:52:53]: [INFO] Response store [JP12471B06340]: Failed store ticket IN
+[2024-07-08 14:52:53]: [INFO] Migrate transaction => ID:[201] | TIKET:[JP12471B06340] | WAKTU MASUK:[2024-07-01 11:06:19] | JENIS KENDARAAN:[MOBIL] 6/6 Failed
+[2024-07-08 14:52:54]: [INFO] Response store [JP12471B19341]: Failed store ticket IN
+[2024-07-08 14:52:54]: [INFO] Migrate transaction => ID:[202] | TIKET:[JP12471B19341] | WAKTU MASUK:[2024-07-01 11:19:00] | JENIS KENDARAAN:[MOBIL] 7/7 Failed
+[2024-07-08 14:52:54]: [INFO] Response store [JP12471F18347]: Failed store ticket IN
+[2024-07-08 14:52:54]: [INFO] Migrate transaction => ID:[203] | TIKET:[JP12471F18347] | WAKTU MASUK:[2024-07-01 15:18:44] | JENIS KENDARAAN:[MOBIL] 8/8 Failed
+[2024-07-08 14:52:56]: [INFO] Application is closed!
+[2024-07-08 14:52:56]: ----------------------------------------------------
+[2024-07-08 15:21:40]: ====================================================
+[2024-07-08 15:21:40]: |                Pos Masuk [Manless]               |
+[2024-07-08 15:21:40]: |                Gate: PM90                        |
+[2024-07-08 15:21:40]: |                Mode: Online        		      |
+[2024-07-08 15:21:40]: |                Version 1.0.6 @ 08/07/2024        |
+[2024-07-08 15:21:40]: ====================================================
+[2024-07-08 15:21:40]: [INFO] App berhasil terhubung ke server...
+[2024-07-08 15:21:40]: [INFO] App => Online Mode...
+[2024-07-08 15:21:40]: [INFO] Last counter => 181
+[2024-07-08 15:21:40]: [INFO] Parking available => 819
+[2024-07-08 15:21:40]: [INFO] Service => 192.168.1.123:6767
+[2024-07-08 15:21:41]: [INFO] Sync time from server => 2024-07-08 15:21:41
+[2024-07-08 15:21:41]: [INFO] Waktu shift : 2
+[2024-07-08 15:21:41]: [INFO] Bank Support : MANDIRI,BRI
+[2024-07-08 15:21:41]: [INFO] Response store [JP12471A36335]: Failed store ticket IN
+[2024-07-08 15:21:41]: [INFO] Migrate transaction => ID:[196] | TIKET:[JP12471A36335] | WAKTU MASUK:[2024-07-01 10:36:31] | JENIS KENDARAAN:[MOBIL] 1/1 Failed
+[2024-07-08 15:21:42]: [INFO] Response store [JP12471A37336]: Failed store ticket IN
+[2024-07-08 15:21:42]: [INFO] Migrate transaction => ID:[197] | TIKET:[JP12471A37336] | WAKTU MASUK:[2024-07-01 10:37:11] | JENIS KENDARAAN:[MOBIL] 2/2 Failed
+[2024-07-08 15:21:42]: [INFO] Response store [JP12471A45337]: Failed store ticket IN
+[2024-07-08 15:21:42]: [INFO] Migrate transaction => ID:[198] | TIKET:[JP12471A45337] | WAKTU MASUK:[2024-07-01 10:45:17] | JENIS KENDARAAN:[MOBIL] 3/3 Failed
+[2024-07-08 15:21:42]: [INFO] Response store [JP12471A46338]: Failed store ticket IN
+[2024-07-08 15:21:42]: [INFO] Migrate transaction => ID:[199] | TIKET:[JP12471A46338] | WAKTU MASUK:[2024-07-01 10:46:40] | JENIS KENDARAAN:[MOBIL] 4/4 Failed
+[2024-07-08 15:21:43]: [INFO] Response store [JP12471A47339]: Failed store ticket IN
+[2024-07-08 15:21:43]: [INFO] Migrate transaction => ID:[200] | TIKET:[JP12471A47339] | WAKTU MASUK:[2024-07-01 10:47:49] | JENIS KENDARAAN:[MOBIL] 5/5 Failed
+[2024-07-08 15:21:43]: [INFO] Response store [JP12471B06340]: Failed store ticket IN
+[2024-07-08 15:21:43]: [INFO] Migrate transaction => ID:[201] | TIKET:[JP12471B06340] | WAKTU MASUK:[2024-07-01 11:06:19] | JENIS KENDARAAN:[MOBIL] 6/6 Failed
+[2024-07-08 15:21:43]: [INFO] Response store [JP12471B19341]: Failed store ticket IN
+[2024-07-08 15:21:43]: [INFO] Migrate transaction => ID:[202] | TIKET:[JP12471B19341] | WAKTU MASUK:[2024-07-01 11:19:00] | JENIS KENDARAAN:[MOBIL] 7/7 Failed
+[2024-07-08 15:21:44]: [INFO] Response store [JP12471F18347]: Failed store ticket IN
+[2024-07-08 15:21:44]: [INFO] Migrate transaction => ID:[203] | TIKET:[JP12471F18347] | WAKTU MASUK:[2024-07-01 15:18:44] | JENIS KENDARAAN:[MOBIL] 8/8 Failed
+[2024-07-08 15:21:47]: [INFO] Application is closed!
+[2024-07-08 15:21:47]: ----------------------------------------------------
+[2024-07-08 15:23:04]: ====================================================
+[2024-07-08 15:23:04]: |                Pos Masuk [Manless]               |
+[2024-07-08 15:23:04]: |                Gate: PM90                        |
+[2024-07-08 15:23:04]: |                Mode: Online        		      |
+[2024-07-08 15:23:04]: |                Version 1.0.6 @ 08/07/2024        |
+[2024-07-08 15:23:04]: ====================================================
+[2024-07-08 15:23:04]: [INFO] App berhasil terhubung ke server...
+[2024-07-08 15:23:04]: [INFO] App => Online Mode...
+[2024-07-08 15:23:04]: [INFO] Last counter => 181
+[2024-07-08 15:23:04]: [INFO] Parking available => 819
+[2024-07-08 15:23:04]: [INFO] Service => 192.168.1.123:6767
+[2024-07-08 15:23:05]: [INFO] Sync time from server => 2024-07-08 15:23:05
+[2024-07-08 15:23:05]: [INFO] Waktu shift : 2
+[2024-07-08 15:23:05]: [INFO] Bank Support : MANDIRI,BRI
+[2024-07-08 15:23:05]: [INFO] Response store [JP12471A36335]: Failed store ticket IN
+[2024-07-08 15:23:05]: [INFO] Migrate transaction => ID:[196] | TIKET:[JP12471A36335] | WAKTU MASUK:[2024-07-01 10:36:31] | JENIS KENDARAAN:[MOBIL] 1/1 Failed
+[2024-07-08 15:23:06]: [INFO] Response store [JP12471A37336]: Failed store ticket IN
+[2024-07-08 15:23:06]: [INFO] Migrate transaction => ID:[197] | TIKET:[JP12471A37336] | WAKTU MASUK:[2024-07-01 10:37:11] | JENIS KENDARAAN:[MOBIL] 2/2 Failed
+[2024-07-08 15:23:06]: [INFO] Response store [JP12471A45337]: Failed store ticket IN
+[2024-07-08 15:23:06]: [INFO] Migrate transaction => ID:[198] | TIKET:[JP12471A45337] | WAKTU MASUK:[2024-07-01 10:45:17] | JENIS KENDARAAN:[MOBIL] 3/3 Failed
+[2024-07-08 15:23:06]: [INFO] Response store [JP12471A46338]: Failed store ticket IN
+[2024-07-08 15:23:06]: [INFO] Migrate transaction => ID:[199] | TIKET:[JP12471A46338] | WAKTU MASUK:[2024-07-01 10:46:40] | JENIS KENDARAAN:[MOBIL] 4/4 Failed
+[2024-07-08 15:23:07]: [INFO] Response store [JP12471A47339]: Failed store ticket IN
+[2024-07-08 15:23:07]: [INFO] Migrate transaction => ID:[200] | TIKET:[JP12471A47339] | WAKTU MASUK:[2024-07-01 10:47:49] | JENIS KENDARAAN:[MOBIL] 5/5 Failed
+[2024-07-08 15:23:07]: [INFO] Response store [JP12471B06340]: Failed store ticket IN
+[2024-07-08 15:23:07]: [INFO] Migrate transaction => ID:[201] | TIKET:[JP12471B06340] | WAKTU MASUK:[2024-07-01 11:06:19] | JENIS KENDARAAN:[MOBIL] 6/6 Failed
+[2024-07-08 15:23:08]: [INFO] Response store [JP12471B19341]: Failed store ticket IN
+[2024-07-08 15:23:08]: [INFO] Migrate transaction => ID:[202] | TIKET:[JP12471B19341] | WAKTU MASUK:[2024-07-01 11:19:00] | JENIS KENDARAAN:[MOBIL] 7/7 Failed
+[2024-07-08 15:23:08]: [INFO] Response store [JP12471F18347]: Failed store ticket IN
+[2024-07-08 15:23:08]: [INFO] Migrate transaction => ID:[203] | TIKET:[JP12471F18347] | WAKTU MASUK:[2024-07-01 15:18:44] | JENIS KENDARAAN:[MOBIL] 8/8 Failed
+[2024-07-08 15:23:18]: [INFO] Silahkan tap ulang kartu anda ...
+[2024-07-08 15:23:28]: [INFO] Silahkan tap ulang kartu anda ...
+[2024-07-08 15:23:32]: [INFO] Bank: BRI
+[2024-07-08 15:23:32]: [INFO] CAN: 6013500608974631
+[2024-07-08 15:23:33]: ============================================
+[2024-07-08 15:23:33]:      Transaction @ 2024-07-08 15:23:33
+[2024-07-08 15:23:33]: ============================================
+[2024-07-08 15:23:33]: [INFO] Ticket counter -> 182
+[2024-07-08 15:23:33]: [INFO] Generate ticket [13] -> JP12478F23182
+[2024-07-08 15:23:33]: [INFO] Generate ticket QR [32] -> JP12478F2318220240708152333MOBIL
+[2024-07-08 15:23:33]: [INFO] Nopol -> 
+[2024-07-08 15:23:33]: [INFO][LOCAL] Successfully store ticket #JP12478F23182
+[2024-07-08 15:23:34]: [INFO][LOCAL] Successfully update counter -> 182
+[2024-07-08 15:23:34]: [INFO] Relay -> Open
+[2024-07-08 15:23:35]: [INFO] Relay -> Close
+[2024-07-08 15:23:35]: [INFO] Response store [JP12478F23182]: Success store ticket IN
+[2024-07-08 15:23:35]: [INFO] Image kendaraan -> tmp/2024-07-08/JP12478F23182-A.jpg
+[2024-07-08 15:23:36]: [INFO] App berhasil terhubung ke server...
+[2024-07-08 15:23:36]: [INFO] App => Online Mode...
+[2024-07-08 15:23:36]: [INFO] Processing time: 3.04 seconds
+[2024-07-08 15:23:46]: [INFO] Application is closed!
+[2024-07-08 15:23:46]: ----------------------------------------------------
+[2024-07-08 15:29:24]: ====================================================
+[2024-07-08 15:29:24]: |                Pos Masuk [Manless]               |
+[2024-07-08 15:29:24]: |                Gate: PM90                        |
+[2024-07-08 15:29:24]: |                Mode: Online        		      |
+[2024-07-08 15:29:24]: |                Version 1.0.6 @ 08/07/2024        |
+[2024-07-08 15:29:24]: ====================================================
+[2024-07-08 15:29:24]: [INFO] App berhasil terhubung ke server...
+[2024-07-08 15:29:24]: [INFO] App => Online Mode...
+[2024-07-08 15:29:24]: [INFO] Last counter => 182
+[2024-07-08 15:29:24]: [INFO] Parking available => 818
+[2024-07-08 15:29:24]: [INFO] Service => 192.168.1.123:6767
+[2024-07-08 15:29:24]: [INFO] Sync time from server => 2024-07-08 15:29:24
+[2024-07-08 15:29:24]: [INFO] Waktu shift : 2
+[2024-07-08 15:29:24]: [INFO] Bank Support : MANDIRI,BRI
+[2024-07-08 15:29:24]: [INFO] Response store [JP12471A36335]: Failed store ticket IN
+[2024-07-08 15:29:24]: [INFO] Migrate transaction => ID:[196] | TIKET:[JP12471A36335] | WAKTU MASUK:[2024-07-01 10:36:31] | JENIS KENDARAAN:[MOBIL] 1/1 Failed
+[2024-07-08 15:29:25]: [INFO] Response store [JP12471A37336]: Failed store ticket IN
+[2024-07-08 15:29:25]: [INFO] Migrate transaction => ID:[197] | TIKET:[JP12471A37336] | WAKTU MASUK:[2024-07-01 10:37:11] | JENIS KENDARAAN:[MOBIL] 2/2 Failed
+[2024-07-08 15:29:25]: [INFO] Response store [JP12471A45337]: Failed store ticket IN
+[2024-07-08 15:29:25]: [INFO] Migrate transaction => ID:[198] | TIKET:[JP12471A45337] | WAKTU MASUK:[2024-07-01 10:45:17] | JENIS KENDARAAN:[MOBIL] 3/3 Failed
+[2024-07-08 15:29:26]: [INFO] Response store [JP12471A46338]: Failed store ticket IN
+[2024-07-08 15:29:26]: [INFO] Migrate transaction => ID:[199] | TIKET:[JP12471A46338] | WAKTU MASUK:[2024-07-01 10:46:40] | JENIS KENDARAAN:[MOBIL] 4/4 Failed
+[2024-07-08 15:29:26]: [INFO] Response store [JP12471A47339]: Failed store ticket IN
+[2024-07-08 15:29:26]: [INFO] Migrate transaction => ID:[200] | TIKET:[JP12471A47339] | WAKTU MASUK:[2024-07-01 10:47:49] | JENIS KENDARAAN:[MOBIL] 5/5 Failed
+[2024-07-08 15:29:26]: [INFO] Response store [JP12471B06340]: Failed store ticket IN
+[2024-07-08 15:29:26]: [INFO] Migrate transaction => ID:[201] | TIKET:[JP12471B06340] | WAKTU MASUK:[2024-07-01 11:06:19] | JENIS KENDARAAN:[MOBIL] 6/6 Failed
+[2024-07-08 15:29:27]: [INFO] Response store [JP12471B19341]: Failed store ticket IN
+[2024-07-08 15:29:27]: [INFO] Migrate transaction => ID:[202] | TIKET:[JP12471B19341] | WAKTU MASUK:[2024-07-01 11:19:00] | JENIS KENDARAAN:[MOBIL] 7/7 Failed
+[2024-07-08 15:29:27]: [INFO] Response store [JP12471F18347]: Failed store ticket IN
+[2024-07-08 15:29:27]: [INFO] Migrate transaction => ID:[203] | TIKET:[JP12471F18347] | WAKTU MASUK:[2024-07-01 15:18:44] | JENIS KENDARAAN:[MOBIL] 8/8 Failed
+[2024-07-08 15:29:32]: [INFO] Bank: MANDIRI
+[2024-07-08 15:29:32]: [INFO] CAN: 6032984071078764
+[2024-07-08 15:29:32]: ============================================
+[2024-07-08 15:29:32]:      Transaction @ 2024-07-08 15:29:32
+[2024-07-08 15:29:32]: ============================================
+[2024-07-08 15:29:32]: [INFO] Ticket counter -> 183
+[2024-07-08 15:29:32]: [INFO] Generate ticket [13] -> JP12478F29183
+[2024-07-08 15:29:32]: [INFO] Generate ticket QR [32] -> JP12478F2918320240708152932MOBIL
+[2024-07-08 15:29:32]: [INFO] Nopol -> 
+[2024-07-08 15:29:32]: [INFO][LOCAL] Successfully store ticket #JP12478F29183
+[2024-07-08 15:29:33]: [INFO][LOCAL] Successfully update counter -> 183
+[2024-07-08 15:29:33]: [INFO] Relay -> Open
+[2024-07-08 15:29:34]: [INFO] Relay -> Close
+[2024-07-08 15:29:35]: [INFO] Response store [JP12478F29183]: Success store ticket IN
+[2024-07-08 15:29:35]: [INFO] Image kendaraan -> tmp/2024-07-08/JP12478F29183-A.jpg
+[2024-07-08 15:29:35]: [INFO] App berhasil terhubung ke server...
+[2024-07-08 15:29:35]: [INFO] App => Online Mode...
+[2024-07-08 15:29:35]: [INFO] Processing time: 3.05 seconds
+[2024-07-08 15:29:59]: ============================================
+[2024-07-08 15:29:59]:      Transaction @ 2024-07-08 15:29:59
+[2024-07-08 15:29:59]: ============================================
+[2024-07-08 15:29:59]: [INFO] Ticket counter -> 184
+[2024-07-08 15:29:59]: [INFO] Generate ticket [13] -> JP12478F29184
+[2024-07-08 15:29:59]: [INFO] Generate ticket QR [32] -> JP12478F2918420240708152959MOBIL
+[2024-07-08 15:29:59]: [INFO] Nopol -> 
+[2024-07-08 15:29:59]: [INFO][LOCAL] Successfully store ticket #JP12478F29184
+[2024-07-08 15:30:00]: [INFO][LOCAL] Successfully update counter -> 184
+[2024-07-08 15:30:00]: [INFO] Relay -> Open
+[2024-07-08 15:30:01]: [INFO] Relay -> Close
+[2024-07-08 15:30:02]: [INFO] Response store [JP12478F29184]: Success store ticket IN
+[2024-07-08 15:30:02]: [INFO] Image kendaraan -> tmp/2024-07-08/JP12478F29184-A.jpg
+[2024-07-08 15:30:02]: [INFO] App berhasil terhubung ke server...
+[2024-07-08 15:30:02]: [INFO] App => Online Mode...
+[2024-07-08 15:30:02]: [INFO] Processing time: 3.06 seconds
+[2024-07-08 15:30:24]: [INFO] Application is closed!
+[2024-07-08 15:30:24]: ----------------------------------------------------
+[2024-07-08 15:36:02]: ====================================================
+[2024-07-08 15:36:02]: |                Pos Masuk [Manless]               |
+[2024-07-08 15:36:02]: |                Gate: PM90                        |
+[2024-07-08 15:36:02]: |                Mode: Online        		      |
+[2024-07-08 15:36:02]: |                Version 1.0.6 @ 08/07/2024        |
+[2024-07-08 15:36:02]: ====================================================
+[2024-07-08 15:36:02]: [INFO] App berhasil terhubung ke server...
+[2024-07-08 15:36:02]: [INFO] App => Online Mode...
+[2024-07-08 15:36:02]: [INFO] Last counter => 184
+[2024-07-08 15:36:02]: [INFO] Parking available => 816
+[2024-07-08 15:36:02]: [INFO] Service => 192.168.1.123:6767
+[2024-07-08 15:36:03]: [INFO] Sync time from server => 2024-07-08 15:36:03
+[2024-07-08 15:36:03]: [INFO] Waktu shift : 2
+[2024-07-08 15:36:03]: [INFO] Bank Support : MANDIRI,BRI
+[2024-07-08 15:36:03]: [INFO] Response store [JP12471A36335]: Failed store ticket IN
+[2024-07-08 15:36:03]: [INFO] Migrate transaction => ID:[196] | TIKET:[JP12471A36335] | WAKTU MASUK:[2024-07-01 10:36:31] | JENIS KENDARAAN:[MOBIL] 1/1 Failed
+[2024-07-08 15:36:04]: [INFO] Response store [JP12471A37336]: Failed store ticket IN
+[2024-07-08 15:36:04]: [INFO] Migrate transaction => ID:[197] | TIKET:[JP12471A37336] | WAKTU MASUK:[2024-07-01 10:37:11] | JENIS KENDARAAN:[MOBIL] 2/2 Failed
+[2024-07-08 15:36:04]: [INFO] Response store [JP12471A45337]: Failed store ticket IN
+[2024-07-08 15:36:04]: [INFO] Migrate transaction => ID:[198] | TIKET:[JP12471A45337] | WAKTU MASUK:[2024-07-01 10:45:17] | JENIS KENDARAAN:[MOBIL] 3/3 Failed
+[2024-07-08 15:36:04]: [INFO] Response store [JP12471A46338]: Failed store ticket IN
+[2024-07-08 15:36:04]: [INFO] Migrate transaction => ID:[199] | TIKET:[JP12471A46338] | WAKTU MASUK:[2024-07-01 10:46:40] | JENIS KENDARAAN:[MOBIL] 4/4 Failed
+[2024-07-08 15:36:05]: [INFO] Response store [JP12471A47339]: Failed store ticket IN
+[2024-07-08 15:36:05]: [INFO] Migrate transaction => ID:[200] | TIKET:[JP12471A47339] | WAKTU MASUK:[2024-07-01 10:47:49] | JENIS KENDARAAN:[MOBIL] 5/5 Failed
+[2024-07-08 15:36:05]: [INFO] Response store [JP12471B06340]: Failed store ticket IN
+[2024-07-08 15:36:05]: [INFO] Migrate transaction => ID:[201] | TIKET:[JP12471B06340] | WAKTU MASUK:[2024-07-01 11:06:19] | JENIS KENDARAAN:[MOBIL] 6/6 Failed
+[2024-07-08 15:36:06]: [INFO] Response store [JP12471B19341]: Failed store ticket IN
+[2024-07-08 15:36:06]: [INFO] Migrate transaction => ID:[202] | TIKET:[JP12471B19341] | WAKTU MASUK:[2024-07-01 11:19:00] | JENIS KENDARAAN:[MOBIL] 7/7 Failed
+[2024-07-08 15:36:06]: [INFO] Response store [JP12471F18347]: Failed store ticket IN
+[2024-07-08 15:36:06]: [INFO] Migrate transaction => ID:[203] | TIKET:[JP12471F18347] | WAKTU MASUK:[2024-07-01 15:18:44] | JENIS KENDARAAN:[MOBIL] 8/8 Failed
+[2024-07-08 15:36:11]: [INFO] Bank: BRI
+[2024-07-08 15:36:11]: [INFO] CAN: 6013500608974631
+[2024-07-08 15:36:11]: ============================================
+[2024-07-08 15:36:11]:      Transaction @ 2024-07-08 15:36:11
+[2024-07-08 15:36:11]: ============================================
+[2024-07-08 15:36:11]: [INFO] Ticket counter -> 185
+[2024-07-08 15:36:11]: [INFO] Generate ticket [13] -> JP12478F36185
+[2024-07-08 15:36:11]: [INFO] Generate ticket QR [32] -> JP12478F3618520240708153611MOBIL
+[2024-07-08 15:36:12]: [INFO] Nopol -> 
+[2024-07-08 15:36:12]: [INFO][LOCAL] Successfully store ticket #JP12478F36185
+[2024-07-08 15:36:13]: [INFO][LOCAL] Successfully update counter -> 185
+[2024-07-08 15:36:13]: [INFO] Relay -> Open
+[2024-07-08 15:36:14]: [INFO] Relay -> Close
+[2024-07-08 15:36:14]: [INFO] Response store [JP12478F36185]: Success store ticket IN
+[2024-07-08 15:36:14]: [INFO] Image kendaraan -> tmp/2024-07-08/JP12478F36185-A.jpg
+[2024-07-08 15:36:15]: [INFO] App berhasil terhubung ke server...
+[2024-07-08 15:36:15]: [INFO] App => Online Mode...
+[2024-07-08 15:36:15]: [INFO] Processing time: 3.04 seconds
+[2024-07-08 15:36:30]: ============================================
+[2024-07-08 15:36:30]:      Transaction @ 2024-07-08 15:36:30
+[2024-07-08 15:36:30]: ============================================
+[2024-07-08 15:36:30]: [INFO] Ticket counter -> 186
+[2024-07-08 15:36:30]: [INFO] Generate ticket [13] -> JP12478F36186
+[2024-07-08 15:36:30]: [INFO] Generate ticket QR [32] -> JP12478F3618620240708153630MOBIL
+[2024-07-08 15:36:30]: [INFO] Nopol -> 
+[2024-07-08 15:36:30]: [INFO][LOCAL] Successfully store ticket #JP12478F36186
+[2024-07-08 15:36:31]: [INFO][LOCAL] Successfully update counter -> 186
+[2024-07-08 15:36:31]: [INFO] Relay -> Open
+[2024-07-08 15:36:32]: [INFO] Relay -> Close
+[2024-07-08 15:36:33]: [INFO] Response store [JP12478F36186]: Success store ticket IN
+[2024-07-08 15:36:33]: [INFO] Image kendaraan -> tmp/2024-07-08/JP12478F36186-A.jpg
+[2024-07-08 15:36:33]: [INFO] App berhasil terhubung ke server...
+[2024-07-08 15:36:33]: [INFO] App => Online Mode...
+[2024-07-08 15:36:33]: [INFO] Processing time: 3.01 seconds
+[2024-07-08 15:36:46]: [INFO] Application is closed!
+[2024-07-08 15:36:46]: ----------------------------------------------------
+[2024-07-08 15:42:59]: ====================================================
+[2024-07-08 15:42:59]: |                Pos Masuk [Manless]               |
+[2024-07-08 15:42:59]: |                Gate: PM90                        |
+[2024-07-08 15:42:59]: |                Mode: Online        		      |
+[2024-07-08 15:42:59]: |                Version 1.0.6 @ 08/07/2024        |
+[2024-07-08 15:42:59]: ====================================================
+[2024-07-08 15:42:59]: [INFO] App berhasil terhubung ke server...
+[2024-07-08 15:42:59]: [INFO] App => Online Mode...
+[2024-07-08 15:42:59]: [INFO] Last counter => 186
+[2024-07-08 15:42:59]: [INFO] Parking available => 814
+[2024-07-08 15:42:59]: [INFO] Service => 192.168.1.123:6767
+[2024-07-08 15:42:59]: [INFO] Sync time from server => 2024-07-08 15:42:59
+[2024-07-08 15:42:59]: [INFO] Waktu shift : 2
+[2024-07-08 15:42:59]: [INFO] Bank Support : MANDIRI,BRI
+[2024-07-08 15:42:59]: [INFO] Response store [JP12471A36335]: Failed store ticket IN
+[2024-07-08 15:42:59]: [INFO] Migrate transaction => ID:[196] | TIKET:[JP12471A36335] | WAKTU MASUK:[2024-07-01 10:36:31] | JENIS KENDARAAN:[MOBIL] 1/1 Failed
+[2024-07-08 15:43:00]: [INFO] Response store [JP12471A37336]: Failed store ticket IN
+[2024-07-08 15:43:00]: [INFO] Migrate transaction => ID:[197] | TIKET:[JP12471A37336] | WAKTU MASUK:[2024-07-01 10:37:11] | JENIS KENDARAAN:[MOBIL] 2/2 Failed
+[2024-07-08 15:43:00]: [INFO] Response store [JP12471A45337]: Failed store ticket IN
+[2024-07-08 15:43:00]: [INFO] Migrate transaction => ID:[198] | TIKET:[JP12471A45337] | WAKTU MASUK:[2024-07-01 10:45:17] | JENIS KENDARAAN:[MOBIL] 3/3 Failed
+[2024-07-08 15:43:01]: [INFO] Response store [JP12471A46338]: Failed store ticket IN
+[2024-07-08 15:43:01]: [INFO] Migrate transaction => ID:[199] | TIKET:[JP12471A46338] | WAKTU MASUK:[2024-07-01 10:46:40] | JENIS KENDARAAN:[MOBIL] 4/4 Failed
+[2024-07-08 15:43:01]: [INFO] Response store [JP12471A47339]: Failed store ticket IN
+[2024-07-08 15:43:01]: [INFO] Migrate transaction => ID:[200] | TIKET:[JP12471A47339] | WAKTU MASUK:[2024-07-01 10:47:49] | JENIS KENDARAAN:[MOBIL] 5/5 Failed
+[2024-07-08 15:43:01]: [INFO] Response store [JP12471B06340]: Failed store ticket IN
+[2024-07-08 15:43:01]: [INFO] Migrate transaction => ID:[201] | TIKET:[JP12471B06340] | WAKTU MASUK:[2024-07-01 11:06:19] | JENIS KENDARAAN:[MOBIL] 6/6 Failed
+[2024-07-08 15:43:02]: [INFO] Response store [JP12471B19341]: Failed store ticket IN
+[2024-07-08 15:43:02]: [INFO] Migrate transaction => ID:[202] | TIKET:[JP12471B19341] | WAKTU MASUK:[2024-07-01 11:19:00] | JENIS KENDARAAN:[MOBIL] 7/7 Failed
+[2024-07-08 15:43:02]: [INFO] Response store [JP12471F18347]: Failed store ticket IN
+[2024-07-08 15:43:02]: [INFO] Migrate transaction => ID:[203] | TIKET:[JP12471F18347] | WAKTU MASUK:[2024-07-01 15:18:44] | JENIS KENDARAAN:[MOBIL] 8/8 Failed
+[2024-07-08 15:43:07]: [INFO] Bank: MANDIRI
+[2024-07-08 15:43:07]: [INFO] CAN: 6032982603140508
+[2024-07-08 15:43:07]: ============================================
+[2024-07-08 15:43:07]:      Transaction @ 2024-07-08 15:43:07
+[2024-07-08 15:43:07]: ============================================
+[2024-07-08 15:43:07]: [INFO] Ticket counter -> 187
+[2024-07-08 15:43:07]: [INFO] Generate ticket [13] -> JP12478F43187
+[2024-07-08 15:43:07]: [INFO] Generate ticket QR [32] -> JP12478F4318720240708154307MOBIL
+[2024-07-08 15:43:08]: [INFO] Nopol -> -
+[2024-07-08 15:43:08]: [INFO][LOCAL] Successfully store ticket #JP12478F43187
+[2024-07-08 15:43:09]: [INFO][LOCAL] Successfully update counter -> 187
+[2024-07-08 15:43:09]: [INFO] Relay -> Open
+[2024-07-08 15:43:10]: [INFO] Relay -> Close
+[2024-07-08 15:43:10]: [INFO] Response store [JP12478F43187]: Success store ticket IN
+[2024-07-08 15:43:10]: [INFO] Image kendaraan -> tmp/2024-07-08/JP12478F43187-A.jpg
+[2024-07-08 15:43:11]: [INFO] App berhasil terhubung ke server...
+[2024-07-08 15:43:11]: [INFO] App => Online Mode...
+[2024-07-08 15:43:11]: [INFO] Processing time: 3.23 seconds
+[2024-07-08 15:43:23]: [INFO] Application is closed!
+[2024-07-08 15:43:23]: ----------------------------------------------------

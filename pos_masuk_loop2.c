@@ -39,6 +39,7 @@
 #include <stdint.h>
 // #include "thread.h"
 #include <signal.h>
+#define _DEFAULT_SOURCE
 #include <dirent.h>
 
 #include "serial.h"
@@ -66,8 +67,8 @@
 
 // Compile make -f Makefile_pos_masuk
 
-static char app_version[] = "1.0.7";
-static char app_builddate[] = "26/07/2024";
+static char app_version[] = "1.0.0";
+static char app_builddate[] = "08/05/2024";
 static int g_run = 1;
 //static ICE_HANDLE hSDK = NULL;
 static int g_regLprEvent = 0;
@@ -111,15 +112,15 @@ char face_engine_status[2];
 char nama_lokasi[50];
 char alamat_lokasi[50];
 char pesan_masuk[100];
-char jenis_langganan[58];
+char jenis_langganan[50];
 char bank_active[50];
 
 char lastTicketCounter[4];
 char nextTicketCounter[4];
 char *timeFromServer;
 int statusManless;
-char linuxSerialController[256];
-char linuxSerialPrinter[256];
+char linuxSerialController[13];
+char linuxSerialPrinter[13];
 int startController = 1;
 int isFinish = 0;
 int isPrinting = 0;
@@ -139,9 +140,6 @@ bool isTapin = true;
 char bank[20];
 int countBlocked = 0;
 int countNotBlocked = 0;
-pthread_t ptd_balance, ptd_stop;
-bool balanceTimeout = false;
-bool printTicket;
 
 char buffer[1024];
 
@@ -281,8 +279,8 @@ typedef enum escpos_error
 	ESCPOS_ERROR_INVALID_CONFIG
 } escpos_error;
 
-escpos_error escpos_last_error();
-escpos_error last_error = ESCPOS_ERROR_NONE;
+extern escpos_error escpos_last_error();
+extern escpos_error last_error = ESCPOS_ERROR_NONE;
 
 escpos_printer *escpos_printer_serial(const char *const portname, const int baudrate)
 {
@@ -595,19 +593,19 @@ void app_log(char* text) {
     }
 }
 
-// Function to get the difference in seconds between two timespec structures
-double getTimeDifference(struct timespec start, struct timespec end) {
-    double start_sec = (double)start.tv_sec + (double)start.tv_nsec / 1e9;
-    double end_sec = (double)end.tv_sec + (double)end.tv_nsec / 1e9;
-    return end_sec - start_sec;
-}
-
 // Function to convert a string to lowercase
 char* stringToLower(char* str) {
     for (int i = 0; str[i]; i++) {
         str[i] = tolower((unsigned char)str[i]);
     }
     return str;
+}
+
+// Function to get the difference in seconds between two timespec structures
+double getTimeDifference(struct timespec start, struct timespec end) {
+    double start_sec = (double)start.tv_sec + (double)start.tv_nsec / 1e9;
+    double end_sec = (double)end.tv_sec + (double)end.tv_nsec / 1e9;
+    return end_sec - start_sec;
 }
 
 // Socket connection
@@ -621,7 +619,6 @@ void *tapstop(void *data)
 	cJSON_AddNumberToObject(json, "id", atoi(reader_id));
 	char *json_str = cJSON_Print(json);
     char buffer[1024] = { 0 };
-
     if ((client_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
         printf("[ERROR] Socket creation error \n");
         // return -1;
@@ -636,7 +633,12 @@ void *tapstop(void *data)
 
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(atoi(service_port));
-    serv_addr.sin_addr.s_addr = inet_addr(service_host);
+
+    // Convert IPv4 and IPv6 addresses from text to binary form
+    if (inet_pton(AF_INET, service_host, &serv_addr.sin_addr) <= 0) {
+        printf("[ERROR] Invalid address or Address is not supported \n");
+        // return -1;
+    }
 
     if ((status = connect(client_fd, (struct sockaddr*)&serv_addr, sizeof(serv_addr))) < 0) {
         printf("[ERROR] Socket Connection failed \n");
@@ -654,34 +656,26 @@ void *tapstop(void *data)
 
     // closing the connected socket
     close(client_fd);
-	return 0;
+	// return 0;
 }
 
 void *tapin(void *data)
 {
 	pthread_detach(pthread_self());
-	isTapin = false;
-
 	int status, valread, client_fd;
 	bool isSuccess = false;
     const char delimiter[2] = ",";
     char* token;
     char *v1, *v2, *v3;
     struct sockaddr_in serv_addr;
-	int res_status;
-	bool isTimeout;
-    char buffer[1024] = { 0 };
-
 	cJSON *json = cJSON_CreateObject();
 	cJSON_AddStringToObject(json, "taptype", "in");
 	cJSON_AddNumberToObject(json, "id", atoi(reader_id));
 	char *json_str = cJSON_Print(json);
-
-    if (isTimeout) {
-		app_log((char *)"[INFO] Silahkan tap ulang kartu anda ...\n");
-		printf("[INFO] Silahkan tap ulang kartu anda ...\n");
-	}
-
+	int res_status;
+	// char *nomorkartu;
+	// char *response;
+    char buffer[1024] = { 0 };
     if ((client_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
         printf("[ERROR][TAPIN] Socket creation error \n");
         // return -1;
@@ -696,7 +690,12 @@ void *tapin(void *data)
 
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(atoi(service_port));
-    serv_addr.sin_addr.s_addr = inet_addr(service_host);
+
+    // Convert IPv4 and IPv6 addresses from text to binary form
+    if (inet_pton(AF_INET, service_host, &serv_addr.sin_addr) <= 0) {
+        printf("[ERROR][TAPIN] Invalid address or Address is not supported \n");
+        // return -1;
+    }
 
     if ((status = connect(client_fd, (struct sockaddr*)&serv_addr, sizeof(serv_addr))) < 0) {
         printf("[ERROR][TAPIN] Socket Connection failed \n");
@@ -707,12 +706,10 @@ void *tapin(void *data)
     send(client_fd, json_str, strlen(json_str), 0);
     valread = read(client_fd, buffer, 1024 - 1); // subtract 1 for the null terminator at the end
 	if (valread < 0) {
-		isTimeout = true;
 		printf("[ERROR][TAPIN] Socket Connection Time out\n");
 		isTapin = true;
 		// return -1;
 	} else {
-		isTimeout = false;
 		printf("[INFO] Received from service => %s\n", buffer);
 
 		// parse the JSON data
@@ -721,7 +718,6 @@ void *tapin(void *data)
 		{
 			cJSON_Delete(json);
 		} else {
-			isTimeout = false;
 			// access the JSON data
 			cJSON *success = cJSON_GetObjectItem(jsonRes, "status");
 			// printf("Status: %d\n", cJSON_IsTrue(status));
@@ -734,7 +730,6 @@ void *tapin(void *data)
 				}
 				asprintf(&v1, "[INFO] Bank: %s\n", bank);
 				app_log(v1);
-				free(v1);
 				printf("[INFO] Bank: %s\n", bank);
 				cJSON *can = cJSON_GetObjectItemCaseSensitive(jsonRes, "can");
 				if (cJSON_IsString(can) && (can->valuestring != NULL)) {
@@ -742,7 +737,6 @@ void *tapin(void *data)
 				}
 				asprintf(&v2, "[INFO] CAN: %s\n", nokartu);
 				app_log(v2);
-				free(v2);
 				printf("[INFO] CAN : %s\n", nokartu);
 				//char* lowerBank = stringToLower(bank);
 				token = strtok(bank_active, delimiter);
@@ -759,7 +753,6 @@ void *tapin(void *data)
 				if (countNotBlocked == 0) {
 					asprintf(&v3,"[INFO] Bank %s belum terdaftar di config!\n", bank);
 					app_log(v3);
-					free(v3);
 					printf("[INFO] Bank %s belum terdaftar di config!\n", bank);
 					sleep(3);
 					isTapin = true;
@@ -781,15 +774,15 @@ void *tapin(void *data)
 	if (isSuccess == true && countNotBlocked >= 1)
 	{
         // member cek
-        is_member(nokartu, (char *)"-", (char *)"-");
+        is_member(nokartu, "-", "-");
 		msleep(100);
-		set_led(linuxSerialController, (char *)"LD3T\n");
+		set_led(linuxSerialController, "LD3T\n");
 		generate_ticket();
 	} else {
         countBlocked = 0;
         countNotBlocked = 0;
 	}
-	return 0;
+	// return 0;
 }
 
 // Upload poto
@@ -802,7 +795,7 @@ int insert_image(char *file)
 	struct curl_slist *headerlist = NULL;
 	static const char buf[] = "Expect:";
 	int success = 0;
-	char url[256];
+	char url[100];
 
 	curl_global_init(CURL_GLOBAL_ALL);
 	curl = curl_easy_init();
@@ -840,7 +833,7 @@ int insert_image(char *file)
 		}
 		else
 		{
-			printf("[INFO] Gagal insert image -> %d\n", res);
+			printf("[INFO] Gagal insert image -> %s\n", res);
 		}
 
 		curl_easy_cleanup(curl);
@@ -1101,7 +1094,7 @@ static int sqlite_callback(void *data, int argc, char **argv, char **azColName)
 // LPR Detection versi PlateRecognizer
 char *lpr_detection(char *url, int max_call, char *file)
 {
-	char *region = (char *)"id";
+	char *region = "id";
 	char *nopol = NULL;
 	CURL *curl;
 	CURLcode res;
@@ -1214,7 +1207,6 @@ int update_counter(char *counter)
 	}
 	asprintf(&v18, "[INFO][LOCAL] Successfully update counter -> %s\n", counter);
 	app_log(v18);
-	free(v18);
 	printf("[INFO][LOCAL] Successfully update counter -> %s\n", counter);
 
 	sqlite3_close(db);
@@ -1228,18 +1220,17 @@ int parking_available(unsigned int ct)
 	int pa = atoi(paper_warning) - ct;
 	if (pa == 0 || ct == 999)
 	{
-		app_log((char *)"[INFO] Gagal print tiket! kertas habis...\n");
+		app_log("[INFO] Gagal print tiket! kertas habis...\n");
 		printf("[INFO] Gagal print tiket! kertas habis...\n");
 	}
 	else if (ct >= pa)
 	{
-		app_log((char *)"[INFO] Peringatan! kertas sebentar lagi habis...\n");
+		app_log("[INFO] Peringatan! kertas sebentar lagi habis...\n");
 		printf("[INFO] Peringatan! kertas sebentar lagi habis...\n");
 	}
 
 	asprintf(&v5, "[INFO] Parking available => %d\n", pa);
 	app_log(v5);
-	free(v5);
 	printf("[INFO] Parking available => %d\n", pa);
 	return 0;
 }
@@ -1300,14 +1291,9 @@ int store_cloud(char *waktumasuk, char *posmasuk, char *kasirmasuk, char *jenisk
 	CURL *curl;
 	CURLcode res;
 	int response;
-	int res_status;
 	struct curl_httppost *formpost = NULL;
 	struct curl_httppost *lastptr = NULL;
-	struct MemoryStruct chunk;
-    chunk.memory = (char *)malloc(1);  // Initial memory allocation
-    chunk.size = 0;            // Initial size
-    char *tolog;
-	char url[256];
+	char url[100];
 
 	curl_global_init(CURL_GLOBAL_ALL);
 	curl = curl_easy_init();
@@ -1369,8 +1355,6 @@ int store_cloud(char *waktumasuk, char *posmasuk, char *kasirmasuk, char *jenisk
 		curl_easy_setopt(curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 		curl_easy_setopt(curl, CURLOPT_USERNAME, AUTH_USER);
 		curl_easy_setopt(curl, CURLOPT_PASSWORD, AUTH_PASSWORD);
-    	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
-		curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
 		curl_easy_setopt(curl, CURLOPT_TIMEOUT, 1);
 		curl_easy_setopt(curl, CURLOPT_HTTPPOST, formpost);
 
@@ -1378,49 +1362,19 @@ int store_cloud(char *waktumasuk, char *posmasuk, char *kasirmasuk, char *jenisk
 		if (res != CURLE_OK)
 		{
             response = 1;
-            asprintf(&tolog, "[ERROR][API] Store ticket failed: %s\n", curl_easy_strerror(res));
-			app_log(tolog);
 			fprintf(stderr, "[ERROR][API] Store ticket failed: %s\n", curl_easy_strerror(res));
-		} else {
-			// printf("[INFO] Response store: %s\n", chunk.memory);
-
-			// Parse JSON response
-			cJSON *json = cJSON_Parse(chunk.memory);
-			if (json == NULL) {
-				const char *error_ptr = cJSON_GetErrorPtr();
-				if (error_ptr != NULL) {
-					fprintf(stderr, "[ERROR] Error before: %s\n", error_ptr);
-				}
-			} else {
-				// Accessing values from JSON
-				cJSON *status = cJSON_GetObjectItem(json, "success");
-				res_status = cJSON_IsTrue(status);
-				cJSON *j_message = cJSON_GetObjectItemCaseSensitive(json, "message");
-				if (cJSON_IsString(j_message) && (j_message->valuestring != NULL)) {
-					asprintf(&tolog, "[INFO] Response store [%s]: %s\n", notiket, j_message->valuestring);
-					app_log(tolog);
-					printf("[INFO] Response store [%s]: %s\n", notiket, j_message->valuestring);
-				} 
-				if (res_status == 1)
-				{
-					response = 0;
-				} else {
-					response = 1;
-				}
-				cJSON_Delete(json);
-			}
 		}
 
-		// long http_code = 0;
-		// curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
-		// if (http_code == 200)
-		// {
-		// 	response = 0;
-		// }
-		// else
-		// {
-		// 	response = 1;
-		// }
+		long http_code = 0;
+		curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
+		if (http_code == 200)
+		{
+			response = 0;
+		}
+		else
+		{
+			response = 1;
+		}
 
 		curl_easy_cleanup(curl);
 		curl_formfree(formpost);
@@ -1518,7 +1472,7 @@ int is_member(char *nokartu, char *nopol, char *notiket)
 	CURLcode res;
     struct curl_httppost *formpost = NULL;
 	struct curl_httppost *lastptr = NULL;
-	char url[256];
+	char url[100];
 	int res_status;
 	char defaultjenis[] = "CASUAL";
 	bool isSuccess = false;
@@ -1581,7 +1535,7 @@ int is_member(char *nokartu, char *nopol, char *notiket)
 					cJSON *j_data = cJSON_GetObjectItemCaseSensitive(json, "data");
 					cJSON *j_code = cJSON_GetObjectItemCaseSensitive(json, "code");
 					cJSON *j_jnslangganan = cJSON_GetObjectItemCaseSensitive(j_data, "jnslangganan");
-					if (cJSON_IsNumber(j_code)) member_code = j_code->valueint;
+					if (cJSON_IsNumber(j_code) && (j_code->valueint != NULL)) member_code = j_code->valueint;
 					switch (member_code)
 					{
 						case 2:
@@ -1589,11 +1543,11 @@ int is_member(char *nokartu, char *nopol, char *notiket)
 							break;
 
 						default:
-							sprintf(jenis_langganan, "CASUAL %s", gate_kind);
+							sprintf(jenis_langganan, "CASUAL");
 							break;
 					}
 				} else {
-					sprintf(jenis_langganan, "CASUAL %s", gate_kind);
+					sprintf(jenis_langganan, "CASUAL");
 				}
 				printf("[INFO] Jenis Langganan -> %s\n", jenis_langganan);
 				cJSON_Delete(json);
@@ -1613,7 +1567,7 @@ void move_photo()
 	time_t rawtime;
 	struct tm *timeinfo;
 	char tanggal[11];
-	char source[275];
+	char source[100];
 	char notiket[14];
 	int i = 0;
 	int len = 0;
@@ -1700,16 +1654,10 @@ void *migrate_transaction(void *tipe)
 			int response = store_cloud((char *)waktu_masuk, (char *)pos, (char *)gate_name, (char *)jenis_kendaraan, (char *)noid, (char *)jnslangganan, (char *)shift, (char *)ticket, (char *)nopol, (char *)kartu);
 			if(response == 0)
 			{
-				asprintf(&v8, "[INFO] Migrate transaction => ID:[%d] | TIKET:[%s] | WAKTU MASUK:[%s] | JENIS KENDARAAN:[%s] %d/%d Success\n", id, ticket, waktu_masuk, jenis_kendaraan, data, data);
-				app_log(v8);
-				free(v8);
 				printf("[INFO] Migrate transaction => ID:[%d] | TIKET:[%s] | WAKTU MASUK:[%s] | JENIS KENDARAAN:[%s] %d/%d Success\n", id, ticket, waktu_masuk, jenis_kendaraan, data, data);
 				delete_data_offline((char *)ticket);
 				move_photo();
 			} else {
-				asprintf(&v8, "[INFO] Migrate transaction => ID:[%d] | TIKET:[%s] | WAKTU MASUK:[%s] | JENIS KENDARAAN:[%s] %d/%d Failed\n", id, ticket, waktu_masuk, jenis_kendaraan, data, data);
-				app_log(v8);
-				free(v8);
 				printf("[INFO] Migrate transaction => ID:[%d] | TIKET:[%s] | WAKTU MASUK:[%s] | JENIS KENDARAAN:[%s] %d/%d Failed\n", id, ticket, waktu_masuk, jenis_kendaraan, data, data);
 			}
 		}
@@ -1722,7 +1670,7 @@ void *migrate_transaction(void *tipe)
 		}
 		else
 		{
-			app_log((char *)"[INFO] No data transaction in local...\n");
+			app_log("[INFO] No data transaction in local...\n");
 			printf("[INFO] No data transaction in local...\n");
 		}
 
@@ -1738,7 +1686,7 @@ void time_sync()
 {
 	CURL *curl;
 	CURLcode res;
-	char url[256];
+	char url[100];
 
 	curl = curl_easy_init();
 	if (curl)
@@ -1776,86 +1724,6 @@ void time_sync()
 	}
 }
 
-void 
-time_sync2()
-{
-    CURL *curl;
-    CURLcode res;
-    char url[255];
-    char command[256];
-    struct MemoryStruct chunk;
-    chunk.memory = (char *)malloc(1);  // Initial memory allocation
-    chunk.size = 0;            // Initial size
-    curl = curl_easy_init();
-    if (curl)
-    {
-        sprintf(url, "http://%s:5000/business-parking/api/v1/tools/date/now", ip_server);
-        curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "GET");
-        curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
-        curl_easy_setopt(curl, CURLOPT_DEFAULT_PROTOCOL, "https");
-        curl_easy_setopt(curl, CURLOPT_URL, url);
-        curl_easy_setopt(curl, CURLOPT_USERNAME, AUTH_USER);
-        curl_easy_setopt(curl, CURLOPT_PASSWORD, AUTH_PASSWORD);
-        curl_easy_setopt(curl, CURLOPT_USERAGENT, "libcurl-agent/1.0");
-        // Set the callback function to handle the response data
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
-        // Pass the chunk structure to the callback function
-        curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
-        curl_easy_setopt(curl, CURLOPT_TIMEOUT, 1);
-
-        res = curl_easy_perform(curl);
-        if (res != CURLE_OK)
-        {
-            fprintf(stderr, "[ERROR] Failed get time from server: %s\n", curl_easy_strerror(res));
-        }
-        else
-        {
-            // parse the JSON data
-            cJSON *json = cJSON_Parse(chunk.memory);
-            if (json == NULL)
-            {
-                const char *error_ptr = cJSON_GetErrorPtr();
-                if (error_ptr != NULL) {
-                    fprintf(stderr, "[ERROR] Error before: %s\n", error_ptr);
-                }
-            } else {
-                int res_status;
-                // access the JSON data
-                cJSON *status = cJSON_GetObjectItem(json, "success");
-                // printf("Status: %d\n", cJSON_IsTrue(status));
-                res_status = cJSON_IsTrue(status);
-                // printf("[INFO] status => %d\n", res_status);
-                if (res_status == 1)
-                {
-                    cJSON *datetime = cJSON_GetObjectItem(json, "data");
-                    if (cJSON_IsString(datetime) && (datetime->valuestring != NULL))
-                    {
-                        // printf("Datetime: %s\n", datetime->valuestring);
-                        timeFromServer = datetime->valuestring;
-                        snprintf(command, sizeof(command), "echo 1234 | sudo -S timedatectl set-time '%s'", timeFromServer);
-                        // Execute the command
-                        int result = system(command);
-                        // Check if the command was executed successfully
-                        if (result == -1 || result == 256) {
-                            // app_log((char *)"[ERROR] Failed sync time from server");
-                            // perror("[ERROR] Failed sync time from server");
-                        } else {
-                            // g_print("[INFO] Time set to: %s\n", time_from_server);
-                            char *v6;
-                            asprintf(&v6, "[INFO] Sync time from server => %s\n", timeFromServer);
-                            app_log(v6);
-                            free(v6);
-                            printf("[INFO] Sync time from server => %s\n", timeFromServer);
-                        }
-                    }
-                }
-            }
-            cJSON_Delete(json);
-        }
-        curl_easy_cleanup(curl);
-    }
-}
-
 // Shift
 void cek_shift()
 {
@@ -1884,76 +1752,10 @@ void cek_shift()
 
 	asprintf(&v7, "[INFO] Waktu shift : %d\n", shift);
 	app_log(v7);
-	free(v7);
 	printf("[INFO] Waktu shift : %d\n", shift);
 }
 
 // Capture
-int capture_buffer()
-{
-	char *path;
-	char *time_str;
-	CURL *curl;
-	CURLcode res;
-	FILE *fp;
-	time_t rawtime;
-	struct tm *timeinfo;
-	char url[256];
-	char img_path[275];
-	int status;
-	char *v15;
-
-	time(&rawtime);
-	timeinfo = localtime(&rawtime);
-	time_str = (char *)malloc(11 * sizeof(char));
-	strftime(time_str, 11, "%Y-%m-%d", timeinfo);
-
-	path = (char *)malloc((18 + strlen(time_str)) * sizeof(char));
-	strcpy(path, "tmp/");
-	strcat(path, time_str);
-
-	mkdir(path, 0777);
-
-	if (atoi(ip_camera_1_status) == 1)
-	{
-		curl = curl_easy_init();
-		if (curl)
-		{
-			if (strcmp(ip_camera_1_model, "HIKVISION") == 0)
-			{
-				sprintf(url, "http://%s/ISAPI/Streaming/channels/101/picture?snapShotImageType=JPEG", ip_camera_1);
-			}
-			else
-			{
-				sprintf(url, "http://%s/cgi-bin/snapshot.cgi", ip_camera_1);
-			}
-			sprintf(img_path, "%s/buffer.jpg", path);
-			// printf("%s\n", img_path);
-			fp = fopen(img_path, "wb");
-			curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "GET");
-            curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
-            curl_easy_setopt(curl, CURLOPT_DEFAULT_PROTOCOL, "https");
-			curl_easy_setopt(curl, CURLOPT_URL, url);
-			curl_easy_setopt(curl, CURLOPT_USERNAME, ip_camera_1_user);
-			curl_easy_setopt(curl, CURLOPT_PASSWORD, ip_camera_1_password);
-			curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
-			curl_easy_setopt(curl, CURLOPT_TIMEOUT, 1);
-			res = curl_easy_perform(curl);
-			if(res != CURLE_OK) {
-				fprintf(stderr, "[ERROR] Failed capture image => %s\n", curl_easy_strerror(res));
-			}
-            curl_easy_cleanup(curl);
-            fclose(fp);
-		}
-	}
-
-	free(time_str);
-	free(path);
-	remove(img_path);
-
-	return 0;
-}
-
 void capture_vehicle(char *filename)
 {
 	char *path;
@@ -1963,8 +1765,8 @@ void capture_vehicle(char *filename)
 	FILE *fp;
 	time_t rawtime;
 	struct tm *timeinfo;
-	char url[256];
-	char img_path[275];
+	char url[100];
+	char img_path[100];
 	int status;
 	char *v15;
 
@@ -2006,6 +1808,7 @@ void capture_vehicle(char *filename)
 			curl_easy_setopt(curl, CURLOPT_TIMEOUT, 1);
 			res = curl_easy_perform(curl);
 			if(res != CURLE_OK) {
+				status = 0;
 				fprintf(stderr, "[ERROR] Failed capture image kendaraan => %s\n", curl_easy_strerror(res));
 			} else {
 				asprintf(&v15, "[INFO] Image kendaraan -> %s\n", img_path);
@@ -2029,7 +1832,7 @@ void capture_vehicle(char *filename)
 	}
 	else
 	{
-		app_log((char *)"[INFO] Image kendaraan is disabled in your configuration!\n");
+		app_log("[INFO] Image kendaraan is disabled in your configuration!\n");
 		printf("[INFO] Image kendaraan is disabled in your configuration!\n");
 	}
 
@@ -2046,8 +1849,8 @@ void capture_face(char *filename)
 	FILE *fp;
 	time_t rawtime;
 	struct tm *timeinfo;
-	char url[256];
-	char img_path[275];
+	char url[100];
+	char img_path[100];
 	int status;
 	char *v16;
 
@@ -2093,7 +1896,6 @@ void capture_face(char *filename)
 			} else {
                 asprintf(&v16, "[INFO] Image wajah -> %s\n", img_path);
                 app_log(v16);
-                free(v16);
                 printf("[INFO] Image wajah -> %s\n", img_path);
                 int result_upload = insert_image(img_path);
                 if (result_upload == 1) remove(img_path);
@@ -2114,7 +1916,7 @@ void capture_face(char *filename)
 	}
 	else
 	{
-		app_log((char *)"[INFO] Image wajah is disabled in your configuration!\n");
+		app_log("[INFO] Image wajah is disabled in your configuration!\n");
 		printf("[INFO] Image wajah is disabled in your configuration!\n");
 	}
 
@@ -2170,13 +1972,13 @@ void set_mode(char *mode)
 	char *v2, *v3;
 	if (strcmp(mode, "Online") == 0)
 	{
-		app_log((char *)"|                Mode: Online        		      |\n");
+		app_log("|                Mode: Online        		      |\n");
 		asprintf(&v2, "|                Version %s @ %s        |\n", app_version, app_builddate);
 		app_log(v2);
-		app_log((char *)"====================================================\n");
+		app_log("====================================================\n");
 		asprintf(&v3, "[INFO] Server '%s' : is up!\n", ip_server);
-		app_log((char *)"[INFO] App berhasil terhubung ke server...\n");
-		app_log((char *)"[INFO] App => Online Mode...\n");
+		app_log("[INFO] App berhasil terhubung ke server...\n");
+		app_log("[INFO] App => Online Mode...\n");
 
 		printf("|                Mode: Online        		   |\n");
 		printf("|                Version %s @ %s        |\n", app_version, app_builddate);
@@ -2185,17 +1987,17 @@ void set_mode(char *mode)
 		printf("[INFO] App berhasil terhubung ke server...\n");
 		printf("[INFO] App => Online Mode...\n");
 		statusManless = 1;
-		set_led(linuxSerialController, (char *)"LD7T\n");
+		set_led(linuxSerialController, "LD7T\n");
 	}
 	else
 	{
-		app_log((char *)"|                Mode: Offline        			   |\n");
+		app_log("|                Mode: Offline        			   |\n");
 		asprintf(&v2, "|                Version %s @ %s        |\n", app_version, app_builddate);
 		app_log(v2);
-		app_log((char *)"====================================================\n");
+		app_log("====================================================\n");
 		asprintf(&v3, "[INFO] Server '%s' : is down!\n", ip_server);
-		app_log((char *)"[INFO] App gagal terhubung ke server...\n");
-		app_log((char *)"[INFO] App => Offline Mode...\n");
+		app_log("[INFO] App gagal terhubung ke server...\n");
+		app_log("[INFO] App => Offline Mode...\n");
 
 		printf("|                Mode: Offline        			   |\n");
 		printf("|                Version %s @ %s        |\n", app_version, app_builddate);
@@ -2204,7 +2006,7 @@ void set_mode(char *mode)
 		printf("[INFO] App gagal terhubung ke server...\n");
 		printf("[INFO] App => Offline Mode...\n");
 		statusManless = 2;
-		set_led(linuxSerialController, (char *)"LD7F\n");
+		set_led(linuxSerialController, "LD7F\n");
 	}
 }
 
@@ -2314,16 +2116,16 @@ int print_ticket(char *port, int baudrate, char *notiket, char *qr, char *waktum
 		escpos_printer_raw(printer, baris4, sizeof(baris4));
 		escpos_printer_raw(printer, "\x1b\x21\x00", sizeof("\x1b\x21\x00")); // double width off
 		escpos_printer_raw(printer, "\n", sizeof("\n"));
-		// if (strcmp(nopol, "") != 0)
-		// {
-		// 	char baris4[9 + strlen(nopol)];
-		// 	sprintf(baris4, "Nopol : %s", nopol);
-		// 	escpos_printer_raw(printer, "\x1b\x4d\x30", sizeof("\x1b\x4d\x30")); // font header
-		// 	escpos_printer_raw(printer, "\x1b\x45\x01", sizeof("\x1b\x45\x01")); // emphasized on
-		// 	escpos_printer_raw(printer, baris4, sizeof(baris4));
-		// 	escpos_printer_raw(printer, "\x1b\x45\x00", sizeof("\x1b\x45\x00")); // emphasized off
-		// 	escpos_printer_raw(printer, "\n", sizeof("\n"));
-		// }
+		if (strcmp(nopol, "") != 0)
+		{
+			char baris4[9 + strlen(nopol)];
+			sprintf(baris4, "Nopol : %s", nopol);
+			escpos_printer_raw(printer, "\x1b\x4d\x30", sizeof("\x1b\x4d\x30")); // font header
+			escpos_printer_raw(printer, "\x1b\x45\x01", sizeof("\x1b\x45\x01")); // emphasized on
+			escpos_printer_raw(printer, baris4, sizeof(baris4));
+			escpos_printer_raw(printer, "\x1b\x45\x00", sizeof("\x1b\x45\x00")); // emphasized off
+			escpos_printer_raw(printer, "\n", sizeof("\n"));
+		}
 		escpos_printer_raw(printer, "------------------------------------------", sizeof("------------------------------------------"));
 		escpos_printer_raw(printer, "\n", sizeof("\n"));
 		escpos_printer_raw(printer, "\x1b\x4d\x31", sizeof("\x1b\x4d\x31")); // font normal
@@ -2387,8 +2189,8 @@ int open_relay(char *port, char *xstr)
 		else
 		{
 			buffer[length] = '\0';
-			printf("%s\n", buffer);
-			app_log((char *)"[INFO] Relay -> Open\n");
+			printf("%s", buffer);
+			app_log("[INFO] Relay -> Open\n");
 			printf("[INFO] Relay -> Open\n");
 			// if (buffer[0] == 'R' && buffer[1] == 'E')
 			// {
@@ -2399,67 +2201,14 @@ int open_relay(char *port, char *xstr)
 			// }
 			//msleep(100);
 			//write(fd, "LD4F", strlen("LD4F"));
-			msleep(1000);
+			msleep(500);
 			write(fd, "OT1F\n", strlen("OT1F\n"));
-			msleep(100);
-			write(fd, "OT1F\n", strlen("OT1F\n"));
-			msleep(100);
-			write(fd, "OT1F\n", strlen("OT1F\n"));
-			app_log((char *)"[INFO] Relay -> Close\n");
+			app_log("[INFO] Relay -> Close\n");
 			printf("[INFO] Relay -> Close\n");
 			break;
 		}
 	}
 	close(fd);
-	return 0;
-}
-
-int close_relay(char *port, char *xstr)
-{
-	// set LED 4
-	//set_led(linuxSerialController, "LD4T");
-	//msleep(100);
-
-	int fd;
-	int wlen;
-	// char *xstr = "LD1T\n";
-	int xlen = strlen(xstr);
-
-	fd = open(port, O_RDWR | O_NOCTTY | O_SYNC);
-	if (fd < 0)
-		printf("[ERROR] Error opening %s: %s\n", port, strerror(errno));
-	set_interface_attribs(fd, B9600);
-	// set_mincount(fd, 0);
-	wlen = write(fd, xstr, xlen);
-	if (wlen != xlen)
-		printf("[ERROR] Error from write: %d, %d\n", wlen, errno);
-	tcdrain(fd);
-	tcflush(fd, TCIOFLUSH);
-	while (1)
-	{
-		char buffer[100];
-		ssize_t length = read(fd, &buffer, sizeof(buffer));
-		if (length == -1)
-		{
-			printf("[ERROR] Error while open the relay\n");
-			break;
-		}
-		else if (length == 0)
-		{
-			printf("[INFO] No more data\n");
-			break;
-		}
-		else
-		{
-			buffer[length] = '\0';
-			printf("%s\n", buffer);
-			app_log((char *)"[INFO] Relay -> Close\n");
-			printf("[INFO] Relay -> Close\n");
-			break;
-		}
-	}
-	close(fd);
-	return 0;
 }
 
 // Generate Ticket
@@ -2473,7 +2222,7 @@ int generate_ticket()
 	countNotBlocked = 0;
 	// set LED 2
 	msleep(100);
-	set_led(linuxSerialController, (char *)"LD2T");
+	set_led(linuxSerialController, "LD2T");
 
 	// processing time
 	clock_gettime(CLOCK_MONOTONIC, &start_t);
@@ -2492,11 +2241,10 @@ int generate_ticket()
 	int getMenit = timeinfo->tm_min;
 
 	char *v9;
-	app_log((char *)"============================================\n");
+	app_log("============================================\n");
 	asprintf(&v9, "     Transaction @ %04d-%02d-%02d %02d:%02d:%02d\n", timeinfo->tm_year + 1900, timeinfo->tm_mon + 1, timeinfo->tm_mday, timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
 	app_log(v9);
-	free(v9);
-	app_log((char *)"============================================\n");
+	app_log("============================================\n");
 
 	printf("============================================\n");
 	printf("     Transaction @ %04d-%02d-%02d %02d:%02d:%02d\n", timeinfo->tm_year + 1900, timeinfo->tm_mon + 1, timeinfo->tm_mday, timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
@@ -2800,7 +2548,6 @@ int generate_ticket()
 	char *v10;
 	asprintf(&v10, "[INFO] Ticket counter -> %s\n", nextTicketCounter);
 	app_log(v10);
-	free(v10);
 	printf("[INFO] Ticket counter -> %s\n", nextTicketCounter);
 
 	random_ticket_code(1, 99);
@@ -2816,10 +2563,9 @@ int generate_ticket()
 	strncat(notiket, codeMenit, strlen(codeMenit));
 	strncat(notiket, nextTicketCounter, strlen(nextTicketCounter));
 	char *v11;
-	asprintf(&v11, "[INFO] Generate ticket [%d] -> %s\n", (int)strlen(notiket), notiket);
+	asprintf(&v11, "[INFO] Generate ticket [%d] -> %s\n", strlen(notiket), notiket);
 	app_log(v11);
-	free(v11);
-	printf("[INFO] Generate ticket [%d] -> %s\n", (int)strlen(notiket), notiket);
+	printf("[INFO] Generate ticket [%d] -> %s\n", strlen(notiket), notiket);
 
 	// generate ticket qr
 	strcpy(notiketQr, notiket);
@@ -2828,17 +2574,16 @@ int generate_ticket()
 	strcat(notiketQr, now);
 	strcat(notiketQr, gate_kind);
 	char *v12;
-	asprintf(&v12, "[INFO] Generate ticket QR [%d] -> %s\n", (int)strlen(notiketQr), notiketQr);
+	asprintf(&v12, "[INFO] Generate ticket QR [%d] -> %s\n", strlen(notiketQr), notiketQr);
 	app_log(v12);
-	free(v12);
-	printf("[INFO] Generate ticket QR [%d] -> %s\n", (int)strlen(notiketQr), notiketQr);
+	printf("[INFO] Generate ticket QR [%d] -> %s\n", strlen(notiketQr), notiketQr);
 
 	char waktumasuk[20];
 	strftime(waktumasuk, sizeof(waktumasuk), "%Y-%m-%d %H:%M:%S", timeinfo);
 	char waktunoid[20];
-	strftime(waktunoid, sizeof(waktunoid), "%Y%m%d%H%M%S", timeinfo);
-	char noid[52];
-	sprintf(noid, "%s-%s", id_manless, waktunoid + 2);
+	strftime(waktunoid, sizeof(waktunoid), "%Y%m%d%H%M", timeinfo);
+	char noid[30];
+	sprintf(noid, "%s-%s%s", id_manless, waktunoid + 2, randomTicketCode);
 	// printf("%s", noid);
 	// 1-2312011438366
 
@@ -2858,33 +2603,30 @@ int generate_ticket()
 	}
 
 	msleep(100);
-	set_led(linuxSerialController, (char *)"LD3F\n");
+	set_led(linuxSerialController, "LD3F\n");
 
 	// set nopol
-	// sprintf(nopol, "-");
+	sprintf(nopol, "%s", nopol_lpr);
 	char *v17;
 	asprintf(&v17, "[INFO] Nopol -> %s\n", nopol);
 	app_log(v17);
-	free(v17);
 	printf("[INFO] Nopol -> %s\n", nopol);
 
 	// save to database
-	store_local(waktumasuk, id_manless, gate_name, gate_kind, noid, jenis_langganan, myshift, notiket, (char *)"-", nokartu);
+	store_local(waktumasuk, id_manless, gate_name, gate_kind, noid, jenis_langganan, myshift, notiket, "-", nokartu);
 
 	// print the ticket
-	if (printTicket) {
-		int result = print_ticket(linuxSerialPrinter, atoi(printer_baudrate), notiket, notiketQr, waktumasuk, randomTicketCode, mode);
-		if (result == 1) {
-			app_log((char *)"[ERROR] Failed print a ticket!\n");
-			printf("[ERROR] Failed print a ticket!\n");
-		}
+	int result = print_ticket(linuxSerialPrinter, atoi(printer_baudrate), notiket, notiketQr, waktumasuk, randomTicketCode, mode);
+	if (result == 1) {
+		app_log("[ERROR] Failed print a ticket!\n");
+		printf("[ERROR] Failed print a ticket!\n");
 	}
 
 	// update counter ticket
 	update_counter(nextTicketCounter);
 
 	// open relay
-	open_relay(linuxSerialController, (char *)"OT1T\n");
+	open_relay(linuxSerialController, "OT1T\n");
 
 	// post to api
 	store_cloud(waktumasuk, id_manless, gate_name, gate_kind, noid, jenis_langganan, myshift, notiket, nopol, nokartu);
@@ -2894,34 +2636,32 @@ int generate_ticket()
 
 	// cek server status
 	int server_ret = ping(ip_server);
-	if (server_ret == 0) {
-		app_log((char *)"[INFO] App berhasil terhubung ke server...\n");
-		app_log((char *)"[INFO] App => Online Mode...\n");
+	if (server_ret == 0)
+	{
+		app_log("[INFO] App berhasil terhubung ke server...\n");
+		app_log("[INFO] App => Online Mode...\n");
 		printf("[INFO] App berhasil terhubung ke server...\n");
 		printf("[INFO] App => Online Mode...\n");
 		statusManless = 1;
-		set_led(linuxSerialController, (char *)"LD7T\n");
+		set_led(linuxSerialController, "LD7T\n");
 
 		// delete data local
 		delete_data_offline(notiket);
-	} else {
-		app_log((char *)"[INFO] App gagal terhubung ke server...\n");
-		app_log((char *)"[INFO] App => Offline Mode...\n");
+	}
+	else
+	{
+		app_log("[INFO] App gagal terhubung ke server...\n");
+		app_log("[INFO] App => Offline Mode...\n");
 		printf("[INFO] App gagal terhubung ke server...\n");
 		printf("[INFO] App => Offline Mode...\n");
 		statusManless = 2;
-		set_led(linuxSerialController, (char *)"LD7F\n");
+		set_led(linuxSerialController, "LD7F\n");
 	}
 
 	// free memory notiket & qr
 	memset(notiket, 0, strlen(notiket));
 	memset(notiketQr, 0, strlen(notiketQr));
-	memset(bank, 0 , strlen(bank));
-	memset(nokartu, 0 , strlen(nokartu));
-	sprintf(nokartu, "-");
 
-	// bypass loop 2
-	printf("[INFO] Loop final -> Ok!\n");
 	// Get the end time
 	clock_gettime(CLOCK_MONOTONIC, &end_t);
 	// Calculate the elapsed time
@@ -2930,12 +2670,8 @@ int generate_ticket()
 	char *v18;
 	asprintf(&v18, "[INFO] Processing time: %.2f seconds\n", elapsed_time);
 	app_log(v18);
-	free(v18);
 	printf("[INFO] Processing time: %.2f seconds\n", elapsed_time);
-	msleep(100);
-	write(fd, "LD2F", strlen("LD2F"));
-	if (!printTicket) pthread_create(&ptd_stop, NULL, tapstop, (void *)"1");
-	sleep(1);
+	
 	return 0;
 }
 
@@ -2960,7 +2696,6 @@ void controller(char *port, int baudrate, char *xstr)
 			set_interface_attribs(fd, B38400);
 			break;
 		default:
-			set_interface_attribs(fd, B9600);
 			break;
 	}
 	// set_mincount(fd, 0);
@@ -2976,7 +2711,7 @@ void controller(char *port, int baudrate, char *xstr)
 		ssize_t length = read(fd, &buffer, sizeof(buffer));
 		if (length == -1)
 		{
-			// printf("[WARNING][CONTROLLER] Error reading from serial port\n");
+			printf("[WARNING][CONTROLLER] Error reading from serial port\n");
 		}
 		else if (length == 0)
 		{
@@ -2994,44 +2729,51 @@ void controller(char *port, int baudrate, char *xstr)
 				// loop 1 kendaraan
 				if (buffer[3] == '1' && buffer[4] == 'T')
 				{
-					if (isIdle == 1) { 
-						printf("[INFO] Mohon tekan tombol atau tap kartu anda ...\n");
-						if (isTapin) {
-							printTicket = false;
-							pthread_create(&ptd_balance, NULL, tapin, (void *)"1");
-						}
-					}
+					printf("[INFO] Mohon tekan tombol tiket ...\n");
 					// led 1
 					msleep(100);
 					write(fd, "LD1T", strlen("LD1T"));
 
+					// testing capture
+					// capture_vehicle("JP1245VC39217");
+
 					// tekan tombol
 					if (buffer[9] == '3' && buffer[10] == 'T' && isIdle == 1)
 					{
-						printTicket = true;
 						msleep(100);
 						write(fd, "LD3T", strlen("LD3T"));
-						sprintf(jenis_langganan, "CASUAL %s", gate_kind);
+						sprintf(jenis_langganan, "CASUAL");
 						generate_ticket();
 					}
 				}
 				else
 				{
-					isIdle = 1;
-					if (!isTapin) {
-						isTapin = true;
-					}
 					msleep(100);
 					write(fd, "LD1F", strlen("LD1F"));
 				}
+
+				// loop 2 final
+				if (buffer[6] == '2' && buffer[7] == 'T')
+				{
+					if (isIdle == 0)
+					{
+						isIdle = 1;
+						printf("[INFO] Loop final -> Ok!\n");
+						msleep(100);
+						write(fd, "LD2F", strlen("LD2F"));
+					}
+					else
+					{
+						printf("[INFO] Mohon selesaikan transaksi anda!\n");
+					}
+				}
 			}
 		}
-		// sleep(1);
-		msleep(atoi(delay_loop));
+		sleep(1);
 	}
 	close(fd);
-	app_log((char *)"[INFO] Application is closed!\n");
-	app_log((char *)"----------------------------------------------------\n");
+	app_log("[INFO] Application is closed!\n");
+	app_log("----------------------------------------------------\n");
 	printf("[INFO] Application is closed!\n");
 	printf("----------------------------------------------------\n");
 }
@@ -3041,18 +2783,16 @@ void handle_signt(int sig)
 {
 	pid_t pid;
 	printf("[INFO] Caught signal -> %d\n", sig);
-	set_led(linuxSerialController, (char *)"LD1F");
+	set_led(linuxSerialController, "LD2F");
 	msleep(100);
-	set_led(linuxSerialController, (char *)"LD2F");
+	set_led(linuxSerialController, "LD3F");
 	msleep(100);
-	set_led(linuxSerialController, (char *)"LD3F");
+	set_led(linuxSerialController, "LD7F");
 	msleep(100);
-	set_led(linuxSerialController, (char *)"LD7F");
-	msleep(100);
-	set_led(linuxSerialController, (char *)"LD8F");
+	set_led(linuxSerialController, "LD8F");
 	pid = getpid(); // Process ID of itself
-	app_log((char *)"[INFO] Application is closed!\n");
-	app_log((char *)"----------------------------------------------------\n");
+	app_log("[INFO] Application is closed!\n");
+	app_log("----------------------------------------------------\n");
 	printf("[INFO] Application is closed!\n");
 	printf("----------------------------------------------------\n");
 	kill(pid, SIGUSR1); // Send SIGUSR1 to itself
@@ -3092,7 +2832,8 @@ int main(int argc, char *argv[])
 
 	// Config ========================================================================================
 	int sqlite = sqlite3_open(DB_LOCAL, &DB);
-	if (sqlite) fprintf(stderr, "[ERROR] Can't open database: %s\n", sqlite3_errmsg(DB));
+	if (sqlite)
+		fprintf(stderr, "[ERROR] Can't open database: %s\n", sqlite3_errmsg(DB));
 
 	if (sqlite3_prepare_v2(DB, "SELECT * FROM config WHERE status=1", 128, &res, &tail) != SQLITE_OK)
 	{
@@ -3191,24 +2932,22 @@ int main(int argc, char *argv[])
 	sprintf(linuxSerialController, "/dev/ttyS%s", controller_port);
 	sprintf(linuxSerialPrinter, "/dev/ttyS%s", printer_port);
 	isIdle = 1;
-	set_led(linuxSerialController, (char *)"LD8T");
+	set_led(linuxSerialController, "LD8T");
 	msleep(100);
-	close_relay(linuxSerialController, (char *)"OT1F\n");
 
 	// Migration =====================================================================================
 	// migrate_transaction((void *)"0");
 	// ===============================================================================================
 
-	app_log((char *)"====================================================\n");
+	app_log("====================================================\n");
 	if(SDK == 1){
-		app_log((char *)"|                Pos Masuk [Manless][SDK]          |\n");
+		app_log("|                Pos Masuk [Manless][SDK]          |\n");
 	} else {
-		app_log((char *)"|                Pos Masuk [Manless]               |\n");
+		app_log("|                Pos Masuk [Manless]               |\n");
 	}
 	char *v1;
 	asprintf(&v1, "|                Gate: %s                        |\n", gate_name);
 	app_log(v1);
-	free(v1);
 
 	printf("====================================================\n");
 	if(SDK == 1){
@@ -3222,11 +2961,11 @@ int main(int argc, char *argv[])
 	int is_server = ping(ip_server);
 	if (is_server == 0)
 	{
-		set_mode((char *)"Online");
+		set_mode("Online");
 	}
 	else
 	{
-		set_mode((char *)"Offline");
+		set_mode("Offline");
 	}
 	// ===============================================================================================
 
@@ -3282,7 +3021,6 @@ int main(int argc, char *argv[])
 	char *v4;
 	asprintf(&v4, "[INFO] Last counter => %s\n", sTicketCounter);
 	app_log(v4);
-	free(v4);
 	printf("[INFO] Last counter => %s\n", sTicketCounter);
 	// sprintf(lastTicketCounter, "%03d", atoi(sTicketCounter) + 1);
 	// printf("[INFO] Next Ticket => %s\n", lastTicketCounter);
@@ -3296,15 +3034,14 @@ int main(int argc, char *argv[])
 	char *v6;
 	asprintf(&v6, "[INFO] Service => %s:%s\n", service_host, service_port);
 	app_log(v6);
-	free(v6);
 	printf("[INFO] Service => %s:%s\n", service_host, service_port);
 	// ===============================================================================================
 
 	// Time Sync =====================================================================================
-	time_sync2();
+	time_sync();
 	// ===============================================================================================
 
-	// Shift 2=========================================================================================
+	// Shift =========================================================================================
 	cek_shift();
 	// ===============================================================================================
 
@@ -3312,7 +3049,6 @@ int main(int argc, char *argv[])
 	char *v5;
 	asprintf(&v5, "[INFO] Bank Support : %s\n", bank_active);
 	app_log(v5);
-	free(v5);
 	printf("[INFO] Bank Support : %s\n", bank_active);
 	// ===============================================================================================
 
@@ -3324,7 +3060,7 @@ int main(int argc, char *argv[])
 	// IO Controller =================================================================================
 	if (is_server == 0)
 	{
-		controller(linuxSerialController, atoi(controller_baudrate), (char *)"IN?\n");
+		controller(linuxSerialController, atoi(controller_baudrate), "IN?\n");
 	}
 	else
 	{
@@ -3336,6 +3072,8 @@ int main(int argc, char *argv[])
 	// ===============================================================================================
 
 	// printf("SQLITE Version %s\n", sqlite3_libversion());
+	// const char *testingjson = tapin(service_host, atoi(service_port), 10);
+	// printf("testing: %s\n", testingjson);
 exit:
 
 	return 0;
