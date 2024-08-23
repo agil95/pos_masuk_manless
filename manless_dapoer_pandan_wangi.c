@@ -52,7 +52,7 @@
 // Compile make -f Makefile_pos_masuk
 
 static char app_version[] = "2.0.0";
-static char app_builddate[] = "01/07/2024";
+static char app_builddate[] = "22/08/2024";
 
 char id_config[1];
 char status_config[1];
@@ -90,7 +90,7 @@ char face_engine_status[2];
 char nama_lokasi[50];
 char alamat_lokasi[50];
 char pesan_masuk[100];
-char jenis_langganan[50];
+char jenis_langganan[57];
 char bank_active[50];
 
 char lastTicketCounter[4];
@@ -109,7 +109,7 @@ char notiket[14];
 char notiketQr[100];
 int shift;
 char nopol[14] = "-";
-char nokartu[16] = "";
+char nokartu[17] = "";
 char nopol_lpr[14];
 int max_call;
 int isIdle;
@@ -119,7 +119,10 @@ char bank[20];
 int countBlocked = 0;
 int countNotBlocked = 0;
 char *time_from_server;
-pthread_t ptid_balance;
+pthread_t ptd_balance, ptd_stop;
+bool balanceTimeout = false;
+bool printTicket;
+int typeTrans = 0;
 
 char buffer[1024];
 
@@ -609,6 +612,35 @@ stringToLower(char* str) {
     return str;
 }
 
+int
+list_bank()
+{
+	sqlite3 *DB;
+	sqlite3_stmt *res;
+	const char *tail;
+	char banks[50];
+
+	int sqlite = sqlite3_open(DB_LOCAL, &DB);
+	if (sqlite)
+		fprintf(stderr, "[ERROR] Can't open database: %s\n", sqlite3_errmsg(DB));
+
+	if (sqlite3_prepare_v2(DB, "SELECT * FROM config WHERE status=1", 128, &res, &tail) != SQLITE_OK)
+	{
+		sqlite3_close(DB);
+		printf("[ERROR] Can't retrieve data: %s\n", sqlite3_errmsg(DB));
+	}
+
+	while (sqlite3_step(res) == SQLITE_ROW)
+	{
+		// printf("%s", sqlite3_column_text(res, 35));
+		sprintf(bank_active, "%s", sqlite3_column_text(res, 35));
+	}
+
+	sqlite3_finalize(res);
+
+	return 0;
+}
+
 // Socket connection
 void 
 *tapstop(void *data)
@@ -658,6 +690,7 @@ void
 *tapin(void *data)
 {
 	pthread_detach(pthread_self());
+    isTapin = false;
 	int status, valread, client_fd;
 	bool isSuccess = false;
     const char delimiter[2] = ",";
@@ -670,12 +703,13 @@ void
 	char *json_str = cJSON_Print(json);
 	int res_status;
 	bool isTimeout;
+	bool bankRegistered = false;
     char buffer[1024] = { 0 };
 
-	if (isTimeout) {
-		app_log((char *)"[INFO] Silahkan tap ulang kartu anda ...\n");
-		printf("[INFO] Silahkan tap ulang kartu anda ...\n");
-	}
+	// if (isTimeout) {
+	// 	app_log((char *)"[INFO] Silahkan tap ulang kartu anda ...\n");
+	// 	printf("[INFO] Silahkan tap ulang kartu anda ...\n");
+	// }
 
     if ((client_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
         printf("[ERROR][TAPIN] Socket creation error \n");
@@ -684,7 +718,7 @@ void
 
 	// Set the socket connect timeout to 5 seconds
 	struct timeval tv;
-	tv.tv_sec = 10;
+	tv.tv_sec = 30;
 	tv.tv_usec = 0;
 	setsockopt(client_fd, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof tv);
 	setsockopt(client_fd, SOL_SOCKET, SO_SNDTIMEO, (const char*)&tv, sizeof tv);
@@ -694,7 +728,7 @@ void
     serv_addr.sin_addr.s_addr = inet_addr(service_host);
 
     if ((status = connect(client_fd, (struct sockaddr*)&serv_addr, sizeof(serv_addr))) < 0) {
-        printf("[ERROR][TAPIN] Socket Connection failed \n");
+        printf("[ERROR][TAPIN] Socket Connection Failed \n");
         // return -1;
     }
 
@@ -703,9 +737,9 @@ void
     valread = read(client_fd, buffer, 1024 - 1); // subtract 1 for the null terminator at the end
 	if (valread < 0) {
 		isTimeout = true;
-		printf("[ERROR][TAPIN] Socket Connection Time out\n");
+		printf("[ERROR][TAPIN] Socket Connection Time Out\n");
 		isTapin = true;
-		pthread_create(&ptid_balance, NULL, tapin, (void *)"1");
+		// pthread_create(&ptd_balance, NULL, tapin, (void *)"1");
 		// return -1;
 	} else {
 		isTimeout = false;
@@ -733,25 +767,26 @@ void
 				printf("[INFO] Bank: %s\n", bank);
 				cJSON *can = cJSON_GetObjectItemCaseSensitive(jsonRes, "can");
 				if (cJSON_IsString(can) && (can->valuestring != NULL)) {
-					strcpy(nokartu, can->valuestring);
+					// strcpy(nokartu, can->valuestring);
+					sprintf(nokartu, "%s", can->valuestring);
 				}
 				asprintf(&v2, "[INFO] CAN: %s\n", nokartu);
 				app_log(v2);
 				free(v2);
 				printf("[INFO] CAN : %s\n", nokartu);
 				//char* lowerBank = stringToLower(bank);
+				list_bank();
+				// printf("[INFO] Bank Active : %s\n", bank_active);
 				token = strtok(bank_active, delimiter);
 				while (token != NULL) {
 					//char* lowerToken = stringToLower(token);
-					// printf("[INFO] -%s\n", token);
-					if (strstr(token, bank) == NULL){
-						countBlocked++;
-					} else {
-						countNotBlocked++;
+					// printf("[INFO] - %s\n", token);
+					if (strstr(token, bank) != NULL){
+						bankRegistered = true;
 					}
 					token = strtok(NULL, delimiter);
 				}
-				if (countNotBlocked == 0) {
+				if (!bankRegistered) {
 					asprintf(&v3,"[INFO] Bank %s belum terdaftar di config!\n", bank);
 					app_log(v3);
 					free(v3);
@@ -772,17 +807,14 @@ void
 	}
     // closing the connected socket
     close(client_fd);
-	if (isSuccess == true && countNotBlocked >= 1)
+	if (isSuccess == true && bankRegistered == true)
 	{
         // member cek
         is_member(nokartu, (char *)"-", (char *)"-");
 		msleep(100);
 		set_led(linuxSerialController, (char *)"LD3T\n");
 		create_ticket();
-	} else {
-        countBlocked = 0;
-        countNotBlocked = 0;
-	}
+	} 
 	return 0;
 }
 
@@ -1528,11 +1560,11 @@ is_member(char *nokartu, char *nopol, char *notiket)
 							break;
 
 						default:
-							sprintf(jenis_langganan, "CASUAL");
+							sprintf(jenis_langganan, "CASUAL %s", gate_kind);
 							break;
 					}
 				} else {
-					sprintf(jenis_langganan, "CASUAL");
+					sprintf(jenis_langganan, "CASUAL %s", gate_kind);
 				}
 				printf("[INFO] Jenis Langganan -> %s\n", jenis_langganan);
 				cJSON_Delete(json);
@@ -1679,6 +1711,7 @@ time_sync()
 	CURL *curl;
     CURLcode res;
     char url[256];
+    char command[256];
     struct MemoryStruct chunk;
     chunk.memory = (char *)malloc(1);  // Initial memory allocation
     chunk.size = 0;            // Initial size
@@ -1727,12 +1760,22 @@ time_sync()
                     if (cJSON_IsString(datetime) && (datetime->valuestring != NULL))
                     {
                         // printf("Datetime: %s\n", datetime->valuestring);
-                        time_from_server = datetime->valuestring;
-                        char *v6;
-                        asprintf(&v6, "[INFO] Sync time from server => %s\n", time_from_server);
-                        app_log(v6);
-						free(v6);
-                        printf("[INFO] Sync time from server => %s\n", time_from_server);
+                        timeFromServer = datetime->valuestring;
+                        snprintf(command, sizeof(command), "echo 1234 | sudo -S timedatectl set-time '%s'", timeFromServer);
+                        // Execute the command
+                        int result = system(command);
+                        // Check if the command was executed successfully
+                        if (result == -1 || result == 256) {
+                            // app_log((char *)"[ERROR] Failed sync time from server");
+                            // perror("[ERROR] Failed sync time from server");
+                        } else {
+                            // g_print("[INFO] Time set to: %s\n", time_from_server);
+                            char *v6;
+                            asprintf(&v6, "[INFO] Sync time from server => %s\n", timeFromServer);
+                            app_log(v6);
+                            free(v6);
+                            printf("[INFO] Sync time from server => %s\n", timeFromServer);
+                        }
                     }
                 }
             }
@@ -2058,8 +2101,12 @@ open_relay(char *port, char *xstr)
 			// }
 			//msleep(100);
 			//write(fd, "LD4F", strlen("LD4F"));
-			msleep(500);
+			msleep(1000);
 			write(fd, "OT1F\n", strlen("OT1F\n"));
+            msleep(100);
+            write(fd, "OT1F\n", strlen("OT1F\n"));
+            msleep(100);
+            write(fd, "OT1F\n", strlen("OT1F\n"));
 			app_log((char *)"[INFO] Relay -> Close\n");
 			printf("[INFO] Relay -> Close\n");
 			break;
@@ -2118,15 +2165,17 @@ create_ticket()
 	printf("     Transaction @ %04d-%02d-%02d %02d:%02d:%02d\n", timeinfo->tm_year + 1900, timeinfo->tm_mon + 1, timeinfo->tm_mday, timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
 	printf("============================================\n");
 
+	printf("[INFO] Tipe -> %d\n", typeTrans);
+	if(typeTrans == 1) {
+		sprintf(nokartu, "%s", "-");
+	}
+
 	// set nopol
 	sprintf(nopol, "%s", "");
 	asprintf(&v2, "[INFO] Nopol -> %s\n", nopol);
 	app_log(v2);
 	free(v2);
 	printf("[INFO] Nopol -> %s\n", nopol);
-
-	// set nokartu
-	sprintf(nokartu,"%s", "-");
 
 	// shift
 	char myshift[2];
@@ -2277,18 +2326,20 @@ create_ticket()
 					// save to database
 					store_local(waktumasuk, id_manless, gate_name, gate_kind, noid, jenis_langganan, myshift, notiket, nopol, nokartu);
 					// print the ticket
-					int result = print_ticket(linuxSerialPrinter, atoi(printer_baudrate), notiket, notiketQr, waktumasuk, ticketcode, mode);
-					if (result == 1) {
-						app_log((char *)"[ERROR] Failed print a ticket!\n");
-						printf("[ERROR] Failed print a ticket!\n");
-					}
+                    if (typeTrans == 1) {
+    					int result = print_ticket(linuxSerialPrinter, atoi(printer_baudrate), notiket, notiketQr, waktumasuk, ticketcode, mode);
+    					if (result == 1) {
+    						app_log((char *)"[ERROR] Failed print a ticket!\n");
+    						printf("[ERROR] Failed print a ticket!\n");
+    					}
+                    }
 					set_led(linuxSerialController, (char *)"LD3F\n");
 					msleep(100);
 					// open relay
 					open_relay(linuxSerialController, (char *)"OT1T\n");
 
 					// bypass loop 2
-					isIdle = 1;
+					isIdle = 0;
 					printf("[INFO] Loop final -> Ok!\n");
 					// Get the end time
 					clock_gettime(CLOCK_MONOTONIC, &end_t);
@@ -2301,12 +2352,18 @@ create_ticket()
 					printf("[INFO] Processing time: %.2f seconds\n", elapsed_time);
 					msleep(100);
 					write(fd, "LD2F", strlen("LD2F"));
+                    if (typeTrans == 0) pthread_create(&ptd_stop, NULL, tapstop, (void *)"1");
 					sleep(1);
 
+                    memset(bank, 0, strlen(bank));
+                    // memset(nokartu, 0, strlen(nokartu));
 					memset(waktumasuk, 0, strlen(waktumasuk));
 					memset(notiket, 0, strlen(notiket));
 					memset(notiketQr, 0, strlen(notiketQr));
 					response = true;
+                    countBlocked = 0;
+                    countNotBlocked = 0;
+					typeTrans = 0;
 				} else {
 					printf("[ERROR] %s", message);
 					response = false;
@@ -2343,6 +2400,7 @@ controller(char *port, int baudrate, char *xstr)
 			set_interface_attribs(fd, B38400);
 			break;
 		default:
+			set_interface_attribs(fd, B9600);
 			break;
 	}
 	// set_mincount(fd, 0);
@@ -2375,30 +2433,41 @@ controller(char *port, int baudrate, char *xstr)
 			if (buffer[0] == 'O' && buffer[1] == 'P')
 			{
 				// loop 1 kendaraan
-				if (buffer[3] == '1' && buffer[4] == 'T')
-				{
-					printf("[INFO] Mohon tekan tombol tiket ...\n");
-					// led 1
-					msleep(100);
-					write(fd, "LD1T", strlen("LD1T"));
+                if (buffer[3] == '1' && buffer[4] == 'T')
+                {
+                    if (isIdle == 1) { 
+                        printf("[INFO] Mohon tekan tombol atau tap kartu anda ...\n");
+                        if (isTapin) {
+                            printTicket = false;
+                            pthread_create(&ptd_balance, NULL, tapin, (void *)"1");
+                        }
+                    }
+                    // led 1
+                    msleep(100);
+                    write(fd, "LD1T", strlen("LD1T"));
 
-					// testing capture
-					// capture_vehicle("JP1245VC39217");
-
-					// tekan tombol
-					if (buffer[9] == '3' && buffer[10] == 'T' && isIdle == 1)
-					{
-						msleep(100);
-						write(fd, "LD3T", strlen("LD3T"));
-						sprintf(jenis_langganan, "CASUAL");
-						create_ticket();
-					}
-				}
-				else
-				{
-					msleep(100);
-					write(fd, "LD1F", strlen("LD1F"));
-				}
+                    // tekan tombol
+                    if (buffer[9] == '3' && buffer[10] == 'T' && isIdle == 1)
+                    {
+						typeTrans = 1;
+                        isTapin = false;
+                        printTicket = true;
+                        msleep(100);
+                        write(fd, "LD3T", strlen("LD3T"));
+                        sprintf(jenis_langganan, "CASUAL %s", gate_kind);
+                        pthread_create(&ptd_stop, NULL, tapstop, (void *)"1");
+                        create_ticket();
+                    }
+                }
+                else
+                {
+                    isIdle = 1;
+                    if (!isTapin) {
+                        isTapin = true;
+                    }
+                    msleep(100);
+                    write(fd, "LD1F", strlen("LD1F"));
+                }
 			}
 		}
 		msleep(atoi(delay_loop));
@@ -2416,6 +2485,7 @@ handle_signt(int sig)
 {
 	pid_t pid;
 	printf("[INFO] Caught signal -> %d\n", sig);
+    pthread_create(&ptd_stop, NULL, tapstop, (void *)"1");
 	set_led(linuxSerialController, (char *)"LD1F");
 	msleep(100);
 	set_led(linuxSerialController, (char *)"LD2F");
